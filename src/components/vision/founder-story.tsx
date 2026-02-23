@@ -14,7 +14,7 @@ export function FounderStory() {
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
           <div className="w-full">
             <img
-              src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=2576&auto=format&fit=crop"
+              src="/jeff-mccubbins.jpeg"
               alt="Jeff McCubbins, Founder of Serving Kingdom KC"
               className="w-full object-cover filter grayscale"
             />
