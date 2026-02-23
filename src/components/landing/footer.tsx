@@ -1,60 +1,48 @@
 import Link from "next/link";
 
-const footerLinks = {
-  company: [
-    { name: "About Us", href: "#vision" },
-    { name: "Events", href: "#events" },
-    { name: "Partners", href: "#" },
-  ],
-  support: [
-    { name: "Contact Us", href: "#" },
-    { name: "Donate", href: "#" },
-    { name: "Volunteer", href: "#" },
-  ],
-};
-
-export const Footer = () => {
+export function Footer() {
   return (
-    <footer id="contact" className="bg-black text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="bg-black text-white">
+      <div className="container mx-auto py-16 px-4">
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
-            <h3 className="text-lg font-bold tracking-tight">SERVING KINGDOM KC</h3>
-            <p className="mt-2 text-gray-400">Kansas City, MO</p>
+            <h3 className="text-xl font-bold tracking-tighter">SERVING KINGDOM KC</h3>
+            <p className="mt-2 text-muted-foreground">Kansas City, MO</p>
           </div>
-          <div className="md:col-span-2 grid grid-cols-2 gap-8">
+          <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div>
-              <h4 className="font-semibold uppercase tracking-wider text-gray-400">Company</h4>
+              <h4 className="font-semibold uppercase tracking-wider text-sm">Navigate</h4>
               <ul className="mt-4 space-y-2">
-                {footerLinks.company.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="hover:text-white transition-colors">
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
+                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Home</Link></li>
+                <li><Link href="#events" className="text-muted-foreground hover:text-white transition-colors">Events</Link></li>
+                <li><Link href="#vision" className="text-muted-foreground hover:text-white transition-colors">Our Vision</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold uppercase tracking-wider text-gray-400">Support</h4>
+              <h4 className="font-semibold uppercase tracking-wider text-sm">Engage</h4>
               <ul className="mt-4 space-y-2">
-                {footerLinks.support.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="hover:text-white transition-colors">
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
+                <li><Link href="#contact" className="text-muted-foreground hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Donate</Link></li>
+                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Partner</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold uppercase tracking-wider text-sm">Follow</h4>
+              <ul className="mt-4 space-y-2">
+                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Instagram</Link></li>
+                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Facebook</Link></li>
+                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">LinkedIn</Link></li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="mt-16 pt-8 border-t border-brand-green">
-          <p className="text-center text-gray-500">
-            &copy; {new Date().getFullYear()} Serving Kingdom KC. All rights reserved.
+        <div className="mt-16 border-t border-primary pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} Serving Kingdom KC. All Rights Reserved.</p>
+          <p className="mt-4 sm:mt-0">
+            Made with ❤️ in Kansas City
           </p>
         </div>
       </div>
     </footer>
   );
-};
+}

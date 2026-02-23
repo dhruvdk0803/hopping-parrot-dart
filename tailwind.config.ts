@@ -10,7 +10,8 @@ export default {
   theme: {
   	extend: {
       fontFamily: {
-        sans: ["var(--font-sans)"],
+        sans: ['var(--font-inter)'],
+        heading: ['var(--font-inter)'],
       },
   		colors: {
         'brand-green': '#527E55',
@@ -50,8 +51,8 @@ export default {
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			md: 'calc(var(--radius))',
+  			sm: 'calc(var(--radius))'
   		},
   		keyframes: {
   			'accordion-down': {

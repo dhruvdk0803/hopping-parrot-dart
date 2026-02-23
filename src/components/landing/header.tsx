@@ -1,79 +1,62 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useScroll, useMotionValueEvent } from "framer-motion";
+import { useState } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
-const navItems = [
-  { name: "Our Vision", href: "#vision" },
-  { name: "Events", href: "#events" },
-  { name: "Testimonials", href: "#testimonials" },
-  { name: "Contact", href: "#contact" },
-];
+export function Header() {
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
-export const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 50);
+  });
+
+  const navLinks = [
+    { href: "#vision", label: "Our Vision" },
+    { href: "#events", label: "Events" },
+    { href: "#contact", label: "Contact" },
+  ];
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 md:h-24">
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            SERVING KINGDOM KC
-          </Link>
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium uppercase tracking-wider hover:text-gray-300 transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-          <div className="hidden md:block">
-            <Button
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-black"
-            >
-              Donate
-            </Button>
-          </div>
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </Button>
-          </div>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled || isMenuOpen ? 'bg-white shadow-md text-black' : 'bg-transparent text-white'}`}
+    >
+      <div className="container mx-auto flex items-center justify-between p-4 h-20">
+        <Link href="/" className="text-xl font-bold tracking-tighter">
+          SERVING KINGDOM KC
+        </Link>
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map(link => (
+            <Link key={link.href} href={link.href} className="hover:text-primary transition-colors text-sm uppercase tracking-widest">
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="hidden md:block">
+          <Button variant={scrolled ? 'default' : 'outline-white'}>Donate</Button>
+        </div>
+        <div className="md:hidden">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X /> : <Menu />}
+          </button>
         </div>
       </div>
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-sm">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col space-y-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-center text-lg font-medium uppercase tracking-wider"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <Button
-              variant="outline"
-              className="w-full border-white text-white hover:bg-white hover:text-black"
-            >
-              Donate
-            </Button>
-          </div>
+      {isMobile && isMenuOpen && (
+        <div className="bg-white text-black absolute top-20 left-0 w-full h-[calc(100vh-5rem)] flex flex-col items-center justify-center gap-8">
+          {navLinks.map(link => (
+            <Link key={link.href} href={link.href} className="text-2xl uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
+          <Button variant="default" size="lg" className="mt-4">Donate</Button>
         </div>
       )}
     </header>
   );
-};
+}

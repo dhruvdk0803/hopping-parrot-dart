@@ -1,23 +1,23 @@
-import { Header } from "@/components/landing/header";
-import { Hero } from "@/components/landing/hero";
-import { Vision } from "@/components/landing/vision";
-import { Events } from "@/components/landing/events";
-import { PartnerCTA } from "@/components/landing/partner-cta";
-import { Testimonials } from "@/components/landing/testimonials";
+import { CtaSection } from "@/components/landing/cta-section";
+import { EventsSection } from "@/components/landing/events-section";
 import { Footer } from "@/components/landing/footer";
+import { Header } from "@/components/landing/header";
+import { HeroSection } from "@/components/landing/hero-section";
+import { TestimonialsSection } from "@/components/landing/testimonials-section";
+import { VisionSection } from "@/components/landing/vision-section";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <>
       <Header />
-      <main className="flex-1">
-        <Hero />
-        <Vision />
-        <Events />
-        <PartnerCTA />
-        <Testimonials />
+      <main>
+        <HeroSection />
+        <VisionSection />
+        <EventsSection />
+        <CtaSection />
+        <TestimonialsSection />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
