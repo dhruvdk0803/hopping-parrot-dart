@@ -1,37 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export function HeroSection() {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end start"],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const videoId = "N6ESFroo3eo";
+  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&rel=0`;
 
   return (
-    <section ref={targetRef} className="relative h-screen text-white">
-      <motion.div
-        style={{ y: imageY }}
-        className="absolute inset-0 z-0"
-      >
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <img
-          src="https://images.unsplash.com/photo-1562592499-4b4a7a59155a?q=80&w=2574&auto=format&fit=crop"
-          alt="Lush green golf course on a sunny day"
-          className="h-full w-full object-cover"
-        />
-      </motion.div>
+    <section className="relative h-screen text-white overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <iframe
+          className="absolute top-1/2 left-1/2 w-full h-full min-w-[177.77vh] min-h-[100vh] object-cover transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          src={videoUrl}
+          title="Serving Kingdom KC Background Video"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+        ></iframe>
+        <div className="absolute inset-0 bg-black/50 z-10" />
+      </div>
 
-      <motion.div 
-        style={{ y: textY }}
-        className="relative z-20 flex h-full flex-col items-center justify-center text-center md:items-start md:text-left container mx-auto px-4"
-      >
+      <div className="relative z-20 flex h-full flex-col items-center justify-center text-center md:items-start md:text-left container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -50,7 +39,7 @@ export function HeroSection() {
             </Button>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
