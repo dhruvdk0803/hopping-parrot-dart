@@ -7,25 +7,34 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-export function Header() {
+interface HeaderProps {
+  variant?: "transparent" | "solid";
+}
+
+export function Header({ variant = "transparent" }: HeaderProps) {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+
+  const isTransparent = variant === 'transparent';
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
   });
 
   const navLinks = [
-    { href: "#vision", label: "Our Vision" },
-    { href: "#events", label: "Events" },
-    { href: "#contact", label: "Contact" },
+    { href: "/", label: "Home" },
+    { href: "/vision", label: "Our Vision" },
+    { href: "/#events", label: "Events" },
+    { href: "/#contact", label: "Contact" },
   ];
+
+  const showTransparent = isTransparent && !scrolled && !isMenuOpen;
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled || isMenuOpen ? 'bg-white shadow-md text-black' : 'bg-transparent text-white'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${showTransparent ? 'bg-transparent text-white' : 'bg-white shadow-md text-black'}`}
     >
       <div className="container mx-auto flex items-center justify-between p-4 h-20">
         <Link href="/" className="text-xl font-bold tracking-tighter">
@@ -39,7 +48,7 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden md:block">
-          <Button variant={scrolled ? 'default' : 'outline-white'}>Donate</Button>
+          <Button variant={showTransparent ? 'outline-white' : 'default'}>Donate</Button>
         </div>
         <div className="md:hidden">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
