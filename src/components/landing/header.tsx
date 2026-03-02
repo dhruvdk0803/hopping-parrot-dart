@@ -26,6 +26,7 @@ export function Header({ variant = "transparent" }: HeaderProps) {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/vision", label: "Our Vision" },
+    { href: "/kc-nonprofits", label: "KC Nonprofits" },
     { href: "/#events", label: "Events" },
     { href: "/#contact", label: "Contact" },
   ];
