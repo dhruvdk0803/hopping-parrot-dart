@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function CtaSection() {
   return (
@@ -22,8 +23,8 @@ export function CtaSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
-          <Button variant="secondary" size="lg" className="mt-8">
-            Contact Us
+          <Button asChild variant="secondary" size="lg" className="mt-8">
+            <Link href="/contact">Contact Us</Link>
           </Button>
         </motion.div>
       </div>

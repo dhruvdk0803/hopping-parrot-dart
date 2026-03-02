@@ -13,15 +13,15 @@ export function Footer() {
             <div>
               <h4 className="font-semibold uppercase tracking-wider text-sm">Navigate</h4>
               <ul className="mt-4 space-y-2">
-                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="#events" className="text-muted-foreground hover:text-white transition-colors">Events</Link></li>
-                <li><Link href="#vision" className="text-muted-foreground hover:text-white transition-colors">Our Vision</Link></li>
+                <li><Link href="/" className="text-muted-foreground hover:text-white transition-colors">Home</Link></li>
+                <li><Link href="/#events" className="text-muted-foreground hover:text-white transition-colors">Events</Link></li>
+                <li><Link href="/vision" className="text-muted-foreground hover:text-white transition-colors">Our Vision</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold uppercase tracking-wider text-sm">Engage</h4>
               <ul className="mt-4 space-y-2">
-                <li><Link href="#contact" className="text-muted-foreground hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/contact" className="text-muted-foreground hover:text-white transition-colors">Contact</Link></li>
                 <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Donate</Link></li>
                 <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Partner</Link></li>
               </ul>

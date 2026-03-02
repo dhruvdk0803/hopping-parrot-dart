@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export const PartnerCTA = () => {
   return (
@@ -17,10 +18,11 @@ export const PartnerCTA = () => {
           Interested in partnering with Serving Kingdom KC?
         </h2>
         <Button
+          asChild
           size="lg"
           className="mt-8 bg-black text-white hover:bg-gray-800 uppercase tracking-widest px-8 h-14 text-base"
         >
-          Contact Us
+          <Link href="/contact">Contact Us</Link>
         </Button>
       </motion.div>
     </section>
