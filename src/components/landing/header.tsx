@@ -37,7 +37,7 @@ const navItems = [
       { label: "Tournament Store", href: "https://perfectgolfevent.com/home-skkc/", external: true },
     ]
   },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/#contact", hideOnDesktop: true },
 ];
 
 export function Header({ variant = "transparent" }: HeaderProps) {
@@ -89,7 +89,7 @@ export function Header({ variant = "transparent" }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center gap-6">
-            {navItems.map((item) => (
+            {navItems.filter(item => !item.hideOnDesktop).map((item) => (
               <div key={item.label} className="relative group">
                 {item.items ? (
                   <button className="flex items-center gap-1 py-2 text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors">
