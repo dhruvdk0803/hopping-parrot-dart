@@ -12,7 +12,7 @@ interface HeaderProps {
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "Tournaments", href: "/#events" },
+  { label: "Tournaments", href: "/tournaments" },
   { label: "Memberships", href: "/memberships" },
   { label: "KC Nonprofits", href: "/kc-nonprofits" },
   {

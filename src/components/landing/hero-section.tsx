@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function HeroSection() {
   const videoId = "N6ESFroo3eo";
@@ -33,7 +34,9 @@ export function HeroSection() {
             Supporting Kansas City Nonprofits Through Purpose-Driven Golf Events
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto">
-            <Button size="lg" className="w-full sm:w-auto">View Upcoming Tournaments</Button>
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href="/tournaments">View Upcoming Tournaments</Link>
+            </Button>
             <Button variant="outline-white" size="lg" className="w-full sm:w-auto">
               Donate
             </Button>
