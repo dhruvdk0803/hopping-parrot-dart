@@ -37,8 +37,8 @@ export function HeroSection() {
             <Button asChild size="lg" className="w-full sm:w-auto">
               <Link href="/tournaments">View Upcoming Tournaments</Link>
             </Button>
-            <Button variant="outline-white" size="lg" className="w-full sm:w-auto">
-              Donate
+            <Button asChild variant="outline-white" size="lg" className="w-full sm:w-auto">
+              <Link href="/donate">Donate</Link>
             </Button>
           </div>
         </motion.div>

@@ -22,8 +22,8 @@ export function Footer() {
               <h4 className="font-semibold uppercase tracking-wider text-sm">Engage</h4>
               <ul className="mt-4 space-y-2">
                 <li><Link href="/contact" className="text-muted-foreground hover:text-white transition-colors">Contact</Link></li>
-                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Donate</Link></li>
-                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Partner</Link></li>
+                <li><Link href="/donate" className="text-muted-foreground hover:text-white transition-colors">Donate</Link></li>
+                <li><Link href="/contact" className="text-muted-foreground hover:text-white transition-colors">Partner</Link></li>
               </ul>
             </div>
             <div>

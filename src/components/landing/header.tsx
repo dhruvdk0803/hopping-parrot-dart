@@ -134,9 +134,10 @@ export function Header({ variant = "transparent" }: HeaderProps) {
               <User className="w-5 h-5" />
             </Link>
             <Button 
+              asChild
               className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold h-12 px-8 transition-all duration-300 hover:scale-[1.02]"
             >
-              Donate
+              <Link href="/donate">Donate</Link>
             </Button>
           </div>
 
@@ -241,9 +242,10 @@ export function Header({ variant = "transparent" }: HeaderProps) {
             {/* Mobile Sticky Bottom Action */}
             <div className="p-6 border-t border-black/10 bg-white flex-shrink-0">
               <Button 
+                asChild
                 className="w-full rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold h-[52px] text-lg transition-colors duration-300"
               >
-                Donate
+                <Link href="/donate" onClick={() => setIsMenuOpen(false)}>Donate</Link>
               </Button>
             </div>
           </motion.div>

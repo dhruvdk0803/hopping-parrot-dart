@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function DonateCta() {
   return (
@@ -15,8 +16,8 @@ export function DonateCta() {
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
           Support the Mission
         </h2>
-        <Button variant="secondary" size="lg" className="mt-8 hover:bg-white hover:text-black transition-colors duration-300">
-          Donate
+        <Button asChild variant="secondary" size="lg" className="mt-8 hover:bg-white hover:text-black transition-colors duration-300">
+          <Link href="/donate">Donate</Link>
         </Button>
       </motion.div>
     </section>
