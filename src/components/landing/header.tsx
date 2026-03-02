@@ -37,7 +37,7 @@ const navItems = [
       { label: "Tournament Store", href: "https://perfectgolfevent.com/home-skkc/", external: true },
     ]
   },
-  { label: "Contact", href: "/#contact", hideOnDesktop: true },
+  { label: "Contact", href: "/contact", hideOnDesktop: true },
 ];
 
 export function Header({ variant = "transparent" }: HeaderProps) {
