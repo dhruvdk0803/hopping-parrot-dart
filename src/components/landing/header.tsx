@@ -27,8 +27,8 @@ export function Header({ variant = "transparent" }: HeaderProps) {
     { href: "/", label: "Home" },
     { href: "/vision", label: "Our Vision" },
     { href: "/kc-nonprofits", label: "KC Nonprofits" },
+    { href: "/memberships", label: "Memberships" },
     { href: "/#events", label: "Events" },
-    { href: "/#contact", label: "Contact" },
   ];
 
   const showTransparent = isTransparent && !scrolled && !isMenuOpen;
@@ -48,8 +48,11 @@ export function Header({ variant = "transparent" }: HeaderProps) {
             </Link>
           ))}
         </nav>
-        <div className="hidden md:block">
-          <Button variant={showTransparent ? 'outline-white' : 'default'}>Donate</Button>
+        <div className="hidden md:flex items-center gap-4">
+          <Link href="/#contact" className="hover:text-primary transition-colors text-sm uppercase tracking-widest font-medium">
+            Contact
+          </Link>
+          <Button variant={showTransparent ? 'outline-white' : 'default'} className="rounded-none uppercase tracking-widest font-bold">Donate</Button>
         </div>
         <div className="md:hidden">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -64,7 +67,10 @@ export function Header({ variant = "transparent" }: HeaderProps) {
               {link.label}
             </Link>
           ))}
-          <Button variant="default" size="lg" className="mt-4">Donate</Button>
+          <Link href="/#contact" className="text-2xl uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>
+            Contact
+          </Link>
+          <Button variant="default" size="lg" className="mt-4 rounded-none uppercase tracking-widest font-bold w-48 h-14">Donate</Button>
         </div>
       )}
     </header>
