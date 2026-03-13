@@ -23,13 +23,7 @@ const navItems = [
       { label: "Golf Lessons", href: "#" },
     ]
   },
-  {
-    label: "Media",
-    items: [
-      { label: "Media", href: "#" },
-      { label: "Podcast", href: "https://www.youtube.com/@JeffMcCubbins", external: true },
-    ]
-  },
+  { label: "Podcast", href: "https://www.youtube.com/@JeffMcCubbins", external: true },
   {
     label: "Shop",
     items: [
@@ -99,9 +93,12 @@ export function Header({ variant = "transparent" }: HeaderProps) {
                 ) : (
                   <Link 
                     href={item.href!} 
-                    className="relative py-2 text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100"
+                    target={item.external ? "_blank" : "_self"}
+                    rel={item.external ? "noopener noreferrer" : ""}
+                    className="relative py-2 text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100 flex items-center gap-1"
                   >
                     {item.label}
+                    {item.external && <ArrowUpRight className="w-3 h-3 opacity-50" />}
                   </Link>
                 )}
 
@@ -218,10 +215,13 @@ export function Header({ variant = "transparent" }: HeaderProps) {
                       ) : (
                         <Link 
                           href={item.href!} 
+                          target={item.external ? "_blank" : "_self"}
+                          rel={item.external ? "noopener noreferrer" : ""}
                           onClick={() => setIsMenuOpen(false)}
-                          className="py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors"
+                          className="flex items-center py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors"
                         >
                           {item.label}
+                          {item.external && <ArrowUpRight className="w-5 h-5 ml-2 opacity-50" />}
                         </Link>
                       )}
                     </div>
