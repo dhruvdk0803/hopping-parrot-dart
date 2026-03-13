@@ -27,7 +27,7 @@ const navItems = [
   {
     label: "Shop",
     items: [
-      { label: "Our Store", href: "#" },
+      { label: "Our Store", href: "/store" },
       { label: "Tournament Store", href: "https://perfectgolfevent.com/home-skkc/", external: true },
     ]
   },

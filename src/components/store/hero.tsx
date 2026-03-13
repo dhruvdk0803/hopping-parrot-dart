@@ -1,0 +1,23 @@
+"use client";
+import { motion } from "framer-motion";
+
+export function StoreHero() {
+  return (
+    <section className="bg-black text-white min-h-[40vh] flex flex-col items-center justify-center text-center p-4 pt-32">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="max-w-3xl mx-auto flex flex-col items-center"
+      >
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase">
+          Our Store
+        </h1>
+        <div className="w-24 h-1 bg-primary my-8"></div>
+        <p className="text-xl md:text-2xl text-muted-foreground font-medium">
+          Shop the collection and support the mission.
+        </p>
+      </motion.div>
+    </section>
+  );
+}

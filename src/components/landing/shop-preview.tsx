@@ -23,7 +23,7 @@ export function ShopPreview() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-black hover:bg-primary text-white uppercase tracking-widest font-bold transition-colors duration-300">
-              <Link href="#">Visit Store</Link>
+              <Link href="/store">Visit Store</Link>
             </Button>
             <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-none border-black text-black hover:bg-black hover:text-white uppercase tracking-widest font-bold transition-colors duration-300">
               <a href="https://perfectgolfevent.com/home-skkc/" target="_blank" rel="noopener noreferrer">
