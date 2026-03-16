@@ -5,20 +5,18 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export function HeroSection() {
-  const videoId = "1Vby1vXCcIcfXejI-B96U7CDfP3gjCCbF";
-
   return (
     <section className="relative h-screen text-white overflow-hidden">
       <div className="absolute inset-0 z-0 bg-black overflow-hidden pointer-events-none">
         {/* 
-          Using an iframe for Google Drive because direct streaming is blocked.
-          We scale it up significantly (w-[300vw] etc.) and center it so the 
-          Google Drive UI controls are pushed outside the visible screen area.
+          Using Vimeo's background=1 parameter to automatically hide controls, 
+          mute, autoplay, and loop the video. The CSS classes ensure it covers 
+          the entire screen while maintaining a 16:9 aspect ratio.
         */}
         <iframe
-          src={`https://drive.google.com/file/d/${videoId}/preview?autoplay=1&mute=1&loop=1`}
-          allow="autoplay"
-          className="absolute top-1/2 left-1/2 w-[300vw] h-[300vh] md:w-[150vw] md:h-[150vh] -translate-x-1/2 -translate-y-1/2 border-none opacity-90"
+          src="https://player.vimeo.com/video/1174024600?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1"
+          allow="autoplay; fullscreen; picture-in-picture"
+          className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 border-none opacity-90"
         ></iframe>
         <div className="absolute inset-0 bg-black/60 z-10" />
       </div>
