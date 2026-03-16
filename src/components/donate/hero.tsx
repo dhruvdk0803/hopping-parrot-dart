@@ -7,12 +7,11 @@ export function DonateHero() {
     <section className="relative text-white min-h-[50vh] flex flex-col items-center justify-center text-center p-4 pt-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero-bg.nef"
+          src="/hero-bg.png"
           alt="Donate Background"
           fill
-          className="object-cover"
+          className="object-cover scale-110"
           priority
-          unoptimized
         />
         <div className="absolute inset-0 bg-black/60 z-10" />
       </div>
