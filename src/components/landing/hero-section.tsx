@@ -5,19 +5,23 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export function HeroSection() {
-  const videoId = "N6ESFroo3eo";
-  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&rel=0`;
+  // Extracting the ID from your Google Drive link to create a direct stream URL
+  const videoId = "1Vby1vXCcIcfXejI-B96U7CDfP3gjCCbF";
+  const videoUrl = `https://drive.google.com/uc?export=download&id=${videoId}`;
 
   return (
     <section className="relative h-screen text-white overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <iframe
-          className="absolute top-1/2 left-1/2 w-full h-full min-w-[177.77vh] min-h-[100vh] object-cover transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          src={videoUrl}
-          title="Serving Kingdom KC Background Video"
-          frameBorder="0"
-          allow="autoplay; encrypted-media"
-        ></iframe>
+      <div className="absolute inset-0 z-0 bg-black">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        >
+          <source src={videoUrl} type="video/mp4" />
+          {/* Fallback in case the video fails to load */}
+        </video>
         <div className="absolute inset-0 bg-black/50 z-10" />
       </div>
 
@@ -34,10 +38,10 @@ export function HeroSection() {
             Supporting Kansas City Nonprofits Through Purpose-Driven Golf Events
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto">
-            <Button asChild size="lg" className="w-full sm:w-auto">
+            <Button asChild size="lg" className="w-full sm:w-auto rounded-none bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold h-14 px-8 transition-colors duration-300">
               <Link href="/tournaments">View Upcoming Tournaments</Link>
             </Button>
-            <Button asChild variant="outline-white" size="lg" className="w-full sm:w-auto">
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto rounded-none border-white text-white hover:bg-white hover:text-black uppercase tracking-widest font-bold h-14 px-8 transition-colors duration-300">
               <Link href="/donate">Donate</Link>
             </Button>
           </div>
