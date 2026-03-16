@@ -5,24 +5,22 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export function HeroSection() {
-  // Extracting the ID from your Google Drive link to create a direct stream URL
   const videoId = "1Vby1vXCcIcfXejI-B96U7CDfP3gjCCbF";
-  const videoUrl = `https://drive.google.com/uc?export=download&id=${videoId}`;
 
   return (
     <section className="relative h-screen text-white overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-black">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        >
-          <source src={videoUrl} type="video/mp4" />
-          {/* Fallback in case the video fails to load */}
-        </video>
-        <div className="absolute inset-0 bg-black/50 z-10" />
+      <div className="absolute inset-0 z-0 bg-black overflow-hidden pointer-events-none">
+        {/* 
+          Using an iframe for Google Drive because direct streaming is blocked.
+          We scale it up significantly (w-[300vw] etc.) and center it so the 
+          Google Drive UI controls are pushed outside the visible screen area.
+        */}
+        <iframe
+          src={`https://drive.google.com/file/d/${videoId}/preview?autoplay=1&mute=1&loop=1`}
+          allow="autoplay"
+          className="absolute top-1/2 left-1/2 w-[300vw] h-[300vh] md:w-[150vw] md:h-[150vh] -translate-x-1/2 -translate-y-1/2 border-none opacity-90"
+        ></iframe>
+        <div className="absolute inset-0 bg-black/60 z-10" />
       </div>
 
       <div className="relative z-20 flex h-full flex-col items-center justify-center text-center md:items-start md:text-left container mx-auto px-4">
