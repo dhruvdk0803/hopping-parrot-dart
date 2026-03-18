@@ -16,10 +16,10 @@ export function ShopPreview() {
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-6">
-            Support the Mission
+            Gear Up for a Cause
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-12 leading-relaxed">
-            Purchase merchandise or tournament gear to help fund nonprofit events and spread the message of Serving Kingdom KC.
+            Purchase merchandise or tournament gear to help fund nonprofit events and spread the message of Serving Kingdom KC. Every purchase directly supports our efforts to empower Kansas City charities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-black hover:bg-primary text-white uppercase tracking-widest font-bold transition-colors duration-300">

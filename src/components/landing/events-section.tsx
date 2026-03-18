@@ -64,7 +64,7 @@ export function EventsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">
-            Upcoming Tournaments
+            Upcoming Charity Golf Tournaments in Kansas City
           </h2>
           <div className="w-12 h-1 bg-primary mx-auto mt-6"></div>
         </motion.div>

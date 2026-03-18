@@ -7,15 +7,15 @@ import Link from "next/link";
 const memberships = [
   {
     title: "Sponsor Membership",
-    description: "Market your business across Serving Kingdom KC events while supporting local nonprofits.",
+    description: "Market your business across Serving Kingdom KC events while supporting local nonprofits. This is an ideal way to discover nonprofit sponsorship opportunities KC and gain valuable brand visibility among community leaders.",
   },
   {
     title: "Team Membership",
-    description: "Secure your 4-person team's spot in multiple premium golf tournaments throughout the year.",
+    description: "Secure your 4-person team's spot in multiple premium golf tournaments throughout the year. Enjoy the best KC golf scramble experiences while knowing your participation directly funds vital charitable work.",
   },
   {
     title: "Sponsor + Team",
-    description: "Maximum impact. Includes sponsor marketing visibility plus a 4-person team entry.",
+    description: "Maximum impact. Includes sponsor marketing visibility plus a 4-person team entry. This premier package offers the ultimate golf tournament sponsorship Kansas City experience, blending corporate giving with team building.",
   }
 ];
 
@@ -30,10 +30,10 @@ export function MembershipsPreview() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">Become a Member</h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">Become a Corporate Sponsor or Member</h2>
           <div className="w-12 h-1 bg-primary mx-auto mt-6 mb-6"></div>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Secure your place in upcoming Serving Kingdom KC events while supporting local nonprofits.
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Elevate your brand, fulfill your CSR goals, and secure your place in premium Kansas City golf events while supporting local nonprofits.
           </p>
         </motion.div>
 
@@ -63,7 +63,7 @@ export function MembershipsPreview() {
           className="text-center"
         >
           <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold transition-colors duration-300">
-            <Link href="/memberships">View Membership Options</Link>
+            <Link href="/memberships">View Sponsorship Packages</Link>
           </Button>
         </motion.div>
       </div>

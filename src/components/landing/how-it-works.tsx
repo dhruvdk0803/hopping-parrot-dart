@@ -8,17 +8,17 @@ const steps = [
   {
     number: "01",
     title: "Partner With Nonprofits",
-    description: "We identify and collaborate with impactful Kansas City organizations that need funding and exposure."
+    description: "We identify and collaborate with impactful Kansas City organizations that need funding and exposure. We handle the heavy lifting of nonprofit fundraising Kansas City so they can focus on their core mission."
   },
   {
     number: "02",
     title: "Host High-Impact Golf Events",
-    description: "We manage premium, professionally run golf tournaments that attract sponsors and players."
+    description: "We manage premium, professionally run charity golf tournaments that attract corporate sponsors and players. Every golf tournament fundraiser is designed to provide an exceptional experience while maximizing charitable contributions."
   },
   {
     number: "03",
     title: "Raise Funds & Build Community",
-    description: "Net proceeds are multiplied, delivering critical resources to our nonprofit partners while uniting the community."
+    description: "Net proceeds are multiplied, delivering critical resources to our nonprofit partners while uniting the community. Together, we turn a great day on the course into lasting support for those who need it most."
   }
 ];
 
@@ -33,11 +33,11 @@ export function HowItWorks() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight uppercase">How It Works</h2>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight uppercase">How We Drive Impact</h2>
           <div className="w-12 h-1 bg-primary mx-auto mt-6"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto mb-16">
+        <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto mb-16">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -58,18 +58,6 @@ export function HowItWorks() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center"
-        >
-          <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-black hover:bg-primary text-white uppercase tracking-widest font-bold transition-colors duration-300">
-            <Link href="/tournaments">Explore Events</Link>
-          </Button>
-        </motion.div>
       </div>
     </section>
   );

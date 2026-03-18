@@ -26,19 +26,20 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+          className="max-w-4xl"
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter uppercase">
-            Serving Kingdom
-          </h1>
-          <p className="mt-4 max-w-xl text-lg md:text-xl">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase leading-tight">
             Supporting Kansas City Nonprofits Through Purpose-Driven Golf Events
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-gray-200">
+            We unite businesses, golf teams, and communities to create a lasting impact on local charities through premium fundraising tournaments. Whether you are looking for corporate sponsorship for nonprofits or want to register a team for a great cause, your participation drives real change in our city.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto">
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto">
             <Button asChild size="lg" className="w-full sm:w-auto rounded-none bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold h-14 px-8 transition-colors duration-300">
               <Link href="/tournaments">View Upcoming Tournaments</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto rounded-none border-white text-white hover:bg-white hover:text-black uppercase tracking-widest font-bold h-14 px-8 transition-colors duration-300">
-              <Link href="/donate">Donate</Link>
+              <Link href="/contact">Partner With Us</Link>
             </Button>
           </div>
         </motion.div>

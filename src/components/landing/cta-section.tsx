@@ -17,15 +17,18 @@ export function CtaSection() {
           <h2 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-6">
             Serve With Us
           </h2>
-          <p className="text-xl md:text-2xl font-medium max-w-2xl mx-auto mb-12">
-            Join us in strengthening nonprofits across Kansas City.
+          <p className="text-xl md:text-2xl font-medium max-w-3xl mx-auto mb-12">
+            Join us in strengthening nonprofits across Kansas City through corporate giving, team participation, or direct donations.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="w-full sm:w-auto h-14 px-12 rounded-none bg-black hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold transition-colors duration-300">
+            <Button asChild className="w-full sm:w-auto h-14 px-10 rounded-none bg-black hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold transition-colors duration-300">
+              <Link href="/memberships">Become a Sponsor</Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-10 rounded-none border-white text-white hover:bg-white hover:text-black uppercase tracking-widest font-bold transition-colors duration-300">
               <Link href="/donate">Donate</Link>
             </Button>
-            <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-12 rounded-none border-white text-white hover:bg-white hover:text-black uppercase tracking-widest font-bold transition-colors duration-300">
+            <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-10 rounded-none border-white text-white hover:bg-white hover:text-black uppercase tracking-widest font-bold transition-colors duration-300">
               <Link href="/contact">Contact Us</Link>
             </Button>
           </div>

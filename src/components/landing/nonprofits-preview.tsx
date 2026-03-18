@@ -13,13 +13,13 @@ export function NonprofitsPreview() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-4xl mx-auto text-center"
         >
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-6">
-            Kansas City Nonprofits
+            Supporting Local Kansas City Charities
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-12 leading-relaxed">
-            Explore organizations making a difference throughout the Kansas City community. Discover causes to support or add your own organization to the directory.
+            Explore organizations making a difference throughout the Kansas City community with the UnCoverKC website. If you are searching for nonprofits near me to support, our directory connects you with vetted, impactful charities. Discover causes to champion or add your own organization to our growing network of local nonprofits.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-black hover:bg-primary text-white uppercase tracking-widest font-bold transition-colors duration-300">
