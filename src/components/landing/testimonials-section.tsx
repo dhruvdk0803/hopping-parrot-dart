@@ -17,14 +17,14 @@ const testimonials = [
 
 const QuoteBlock = ({ testimonial, delay }: { testimonial: (typeof testimonials)[0], delay: number }) => (
   <motion.div 
-    className="relative border-l-2 border-primary pl-8"
+    className="relative border-l-2 border-primary pl-6 md:pl-8"
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.3 }}
     transition={{ duration: 0.6, ease: "easeOut", delay }}
   >
-    <p className="text-lg md:text-xl leading-relaxed font-medium">"{testimonial.quote}"</p>
-    <p className="mt-8 font-bold uppercase tracking-widest text-sm">{testimonial.name}</p>
+    <p className="text-base sm:text-lg md:text-xl leading-relaxed font-medium">"{testimonial.quote}"</p>
+    <p className="mt-6 md:mt-8 font-bold uppercase tracking-widest text-sm">{testimonial.name}</p>
     <p className="text-muted-foreground text-sm mt-1">{testimonial.org}</p>
   </motion.div>
 );
@@ -40,13 +40,13 @@ export function TestimonialsSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter uppercase">
             The Impact of Your Support
           </h2>
           <div className="w-12 h-1 bg-primary mx-auto mt-6"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-16 mb-24">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 mb-24">
           {testimonials.map((testimonial, index) => (
             <QuoteBlock key={testimonial.name} testimonial={testimonial} delay={index * 0.1} />
           ))}
@@ -58,17 +58,17 @@ export function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="border-t border-black/10 pt-16"
+          className="border-t border-black/10 pt-12 md:pt-16"
         >
-          <p className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground mb-8">
+          <p className="text-center text-xs sm:text-sm font-bold uppercase tracking-widest text-muted-foreground mb-8">
             Trusted by our partners and sponsors
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale">
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-16 opacity-50 grayscale">
             {/* Replace these with actual img tags when logos are available */}
-            <div className="text-xl font-bold tracking-tighter">SPONSOR LOGO</div>
-            <div className="text-xl font-bold tracking-tighter">PARTNER LOGO</div>
-            <div className="text-xl font-bold tracking-tighter">SPONSOR LOGO</div>
-            <div className="text-xl font-bold tracking-tighter">PARTNER LOGO</div>
+            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">SPONSOR LOGO</div>
+            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">PARTNER LOGO</div>
+            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">SPONSOR LOGO</div>
+            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">PARTNER LOGO</div>
           </div>
         </motion.div>
       </div>
