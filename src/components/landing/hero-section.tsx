@@ -6,24 +6,25 @@ import Link from "next/link";
 
 export function HeroSection() {
   return (
-    <section className="relative h-screen text-white overflow-hidden">
+    <section className="relative min-h-[100svh] text-white overflow-hidden flex items-center">
       <div className="absolute inset-0 z-0 bg-black overflow-hidden pointer-events-none">
         {/* 
           Using Vimeo's background=1 parameter to automatically hide controls, 
           mute, autoplay, and loop the video. The CSS classes ensure it covers 
           the entire screen while maintaining a 16:9 aspect ratio.
+          Increased min-h and min-w to ensure it covers the background even if the section grows taller than 100vh on small screens.
         */}
         <iframe
           src="https://player.vimeo.com/video/1174024600?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1"
           allow="autoplay; fullscreen; picture-in-picture"
-          className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 border-none opacity-90"
+          className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[120vh] min-w-[213.33vh] -translate-x-1/2 -translate-y-1/2 border-none opacity-90"
         ></iframe>
         {/* Improved gradient overlay for better text readability */}
         <div className="absolute inset-0 bg-black/50 md:bg-gradient-to-r md:from-black/80 md:via-black/50 md:to-transparent z-10" />
       </div>
 
-      {/* Added pt-20 to account for the fixed header on mobile */}
-      <div className="relative z-20 flex h-full flex-col items-center justify-center text-center md:items-start md:text-left container mx-auto px-4 pt-20">
+      {/* Replaced h-full with w-full and added generous top/bottom padding to prevent cutoff */}
+      <div className="relative z-20 w-full flex flex-col items-center justify-center text-center md:items-start md:text-left container mx-auto px-4 pt-32 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
