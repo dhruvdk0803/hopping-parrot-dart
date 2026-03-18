@@ -10,8 +10,8 @@ const testimonials = [
   },
   {
     quote: "Partnering with Serving Kingdom KC has been one of the best decisions for our community outreach. Not only did our team have an incredible time at the tournament, but the visibility and networking opportunities were outstanding. It is a privilege to align our brand with such a meaningful cause.",
-    name: "[Placeholder Name]",
-    org: "[Placeholder Title], [Corporate Sponsor Company]",
+    name: "Jane Doe",
+    org: "CEO, LevelUp Kids",
   },
 ];
 
