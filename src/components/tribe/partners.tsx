@@ -39,8 +39,10 @@ const partners = [
     copy: "Golf Ranch Shoal Creek delivers a premium training environment with covered heated bays, advanced shot-tracing technology, and performance-driven design. Whether refining distances or tracking measurable improvement, it’s built for golfers serious about getting better.",
     buttonText: "Visit Golf Ranch",
     buttonStyle: "border-black text-black hover:bg-primary hover:border-primary hover:text-white",
-    image: "https://images.unsplash.com/photo-1587174469332-3TT5b48cad33?q=80&w=2127&auto=format&fit=crop",
-    link: "#"
+    image: "/golf-ranch-logo.jpg",
+    link: "https://www.golfranch.com/",
+    imageBgClass: "bg-white",
+    imageFitClass: "object-contain p-16"
   }
 ];
 
