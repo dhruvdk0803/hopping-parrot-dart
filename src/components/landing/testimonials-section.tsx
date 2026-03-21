@@ -31,7 +31,7 @@ const QuoteBlock = ({ testimonial, delay }: { testimonial: (typeof testimonials)
 
 export function TestimonialsSection() {
   return (
-    <section className="py-24 sm:py-32 bg-white text-black relative overflow-hidden">
+    <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 bg-white text-black relative overflow-hidden">
       <div className="container mx-auto relative z-10 px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -46,7 +46,7 @@ export function TestimonialsSection() {
           <div className="w-12 h-1 bg-primary mx-auto mt-6"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 mb-12">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
           {testimonials.map((testimonial, index) => (
             <QuoteBlock key={testimonial.name} testimonial={testimonial} delay={index * 0.1} />
           ))}

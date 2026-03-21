@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function NonprofitsPreview() {
   return (
-    <section className="py-24 sm:py-32 bg-white text-black border-b border-black/10">
+    <section className="pt-16 sm:pt-20 pb-24 sm:pb-32 bg-white text-black border-t border-b border-black/10">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
