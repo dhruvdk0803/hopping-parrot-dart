@@ -10,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Serving Kingdom KC",
-  description: "Supporting Kansas City Nonprofits Through Purpose-Driven Golf Events",
+  title: "Charity Golf Tournaments & Nonprofit Fundraising Kansas City | Serving Kingdom KC",
+  description: "Serving Kingdom KC unites businesses and communities through premium charity golf tournaments to support local nonprofits in Kansas City. Become a corporate sponsor or register your team today.",
 };
 
 export default function RootLayout({
