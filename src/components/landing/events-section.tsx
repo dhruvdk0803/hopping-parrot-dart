@@ -23,7 +23,7 @@ const events = [
     title: "Valor Ranch",
     date: "May 8th, 2026",
     location: "Paradise Pointe Golf Complex",
-    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2670&auto=format&fit=crop",
+    image: "/valor-ranch-logo.jpeg",
     link: "/tournaments",
   },
 ];
