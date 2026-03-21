@@ -9,7 +9,7 @@ const events = [
     title: "Varsity Skateboarding Organization",
     date: "March 28th, 2026",
     location: "Golf Ranch Shoal Creek",
-    image: "https://images.unsplash.com/photo-1587174469332-3TT5b48cad33?q=80&w=2670&auto=format&fit=crop",
+    image: "/varsity-skate-logo.jpg",
     link: "/tournaments",
   },
   {
