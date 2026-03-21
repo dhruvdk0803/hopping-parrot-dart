@@ -9,8 +9,10 @@ const partners = [
     copy: "Loading Golf isn’t just about lessons — it’s about intentional growth. Coach Kobe builds players on a foundation of faith, patience, and process, helping golfers develop character and confidence both on and off the course. A Kansas City native and professional instructor, Kobe makes the game approachable while sharpening the competitive edge that drives improvement.",
     buttonText: "Visit Loading Golf",
     buttonStyle: "border-primary text-primary hover:bg-primary hover:text-white",
-    image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2070&auto=format&fit=crop",
-    link: "#"
+    image: "/loading-golf-logo.png",
+    link: "https://loadinggolf.com/",
+    imageBgClass: "bg-black",
+    imageFitClass: "object-contain p-16"
   },
   {
     name: "Bridge Integrative Medicine",
@@ -51,7 +53,7 @@ export function TribePartners() {
                 className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center`}
               >
                 <motion.div 
-                  className="w-full md:w-1/2 overflow-hidden relative h-[400px] md:h-[600px]"
+                  className={`w-full md:w-1/2 overflow-hidden relative h-[400px] md:h-[600px] ${partner.imageBgClass || ''}`}
                   initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
@@ -61,7 +63,7 @@ export function TribePartners() {
                     src={partner.image}
                     alt={partner.name}
                     fill
-                    className="object-cover transition-transform duration-700 ease-in-out hover:scale-[1.02]"
+                    className={`${partner.imageFitClass || 'object-cover'} transition-transform duration-700 ease-in-out hover:scale-[1.02]`}
                   />
                 </motion.div>
 
@@ -85,7 +87,9 @@ export function TribePartners() {
                       className={`h-[52px] px-8 rounded-none uppercase tracking-widest font-bold transition-colors duration-300 w-full sm:w-auto ${partner.buttonStyle}`}
                       asChild
                     >
-                      <a href={partner.link}>{partner.buttonText}</a>
+                      <a href={partner.link} target={partner.link.startsWith('http') ? "_blank" : "_self"} rel={partner.link.startsWith('http') ? "noopener noreferrer" : ""}>
+                        {partner.buttonText}
+                      </a>
                     </Button>
                   </div>
                 </motion.div>
