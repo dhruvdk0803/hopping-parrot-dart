@@ -29,8 +29,10 @@ const partners = [
     copy: "For club alterations, repairs, and precision builds, Smithville Golf is our trusted choice. This family-owned shop blends industry expertise with personalized service — ensuring every golfer plays with confidence. From regrips to full custom builds, they keep your equipment dialed in.",
     buttonText: "Visit Smithville Golf",
     buttonStyle: "border-black text-black hover:bg-primary hover:border-primary hover:text-white",
-    image: "https://images.unsplash.com/photo-1592555059503-0a774cb8d477?q=80&w=2070&auto=format&fit=crop",
-    link: "#"
+    image: "/smithville-golf-logo.png",
+    link: "https://smithvillegolf.com/",
+    imageBgClass: "bg-[#b2d235]",
+    imageFitClass: "object-contain p-8"
   },
   {
     name: "Golf Ranch Shoal Creek",
