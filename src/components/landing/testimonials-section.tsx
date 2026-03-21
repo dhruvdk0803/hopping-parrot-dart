@@ -46,31 +46,11 @@ export function TestimonialsSection() {
           <div className="w-12 h-1 bg-primary mx-auto mt-6"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 mb-24">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 mb-12">
           {testimonials.map((testimonial, index) => (
             <QuoteBlock key={testimonial.name} testimonial={testimonial} delay={index * 0.1} />
           ))}
         </div>
-        
-        {/* Logo Grid Placeholder */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="border-t border-black/10 pt-12 md:pt-16"
-        >
-          <p className="text-center text-xs sm:text-sm font-bold uppercase tracking-widest text-muted-foreground mb-8">
-            Trusted by our partners and sponsors
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-16 opacity-50 grayscale">
-            {/* Replace these with actual img tags when logos are available */}
-            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">SPONSOR LOGO</div>
-            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">PARTNER LOGO</div>
-            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">SPONSOR LOGO</div>
-            <div className="text-sm sm:text-lg md:text-xl font-bold tracking-tighter">PARTNER LOGO</div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
