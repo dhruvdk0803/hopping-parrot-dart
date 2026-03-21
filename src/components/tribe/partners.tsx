@@ -19,8 +19,10 @@ const partners = [
     copy: "Dr. Bruce Rippee and his team combine compassion with advanced treatments to help patients move, perform, and recover at their best. From chiropractic care and rehab to non-surgical pain relief and weight management, their collaborative approach creates long-term solutions — keeping you strong and ready for the next round.",
     buttonText: "Visit Bridge Integrative Medicine",
     buttonStyle: "border-black text-black hover:bg-primary hover:border-primary hover:text-white",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
-    link: "#"
+    image: "/bridge-integrative-logo.jpg",
+    link: "https://brintmed.com/",
+    imageBgClass: "bg-gray-100",
+    imageFitClass: "object-contain p-8"
   },
   {
     name: "Smithville Golf",
