@@ -10,14 +10,14 @@ const events = [
     date: "March 28th, 2026",
     location: "Golf Ranch Shoal Creek",
     image: "/varsity-skate-logo.jpg",
-    link: "/tournaments",
+    link: "https://varsity-skateboarding-golf.perfectgolfevent.com/",
   },
   {
     title: "Blue Springs Young Life",
     date: "April 27th, 2026",
     location: "Adams Pointe Golf Club",
     image: "/younglife-logo.jpeg",
-    link: "/tournaments",
+    link: "https://mo77.younglife.team/2026-golf-tournament",
   },
   {
     title: "Valor Ranch",
@@ -45,7 +45,12 @@ const EventCard = ({ event, delay }: { event: (typeof events)[0], delay: number 
       <p className="text-sm font-bold uppercase tracking-widest text-primary mb-3">{event.date}</p>
       <h3 className="text-2xl font-bold tracking-tight mb-2">{event.title}</h3>
       <p className="text-muted-foreground mb-8 flex-grow">{event.location}</p>
-      <Link href={event.link} className="inline-block font-bold text-sm uppercase tracking-widest underline-animate text-black w-fit">
+      <Link 
+        href={event.link} 
+        target={event.link.startsWith('http') ? "_blank" : undefined}
+        rel={event.link.startsWith('http') ? "noopener noreferrer" : undefined}
+        className="inline-block font-bold text-sm uppercase tracking-widest underline-animate text-black w-fit"
+      >
         Learn More
       </Link>
     </div>

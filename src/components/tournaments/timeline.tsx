@@ -14,7 +14,7 @@ const events = [
     location: "Golf Ranch Shoal Creek",
     time: "Shotgun Start 12:00pm",
     hasLink: true,
-    link: "#"
+    link: "https://varsity-skateboarding-golf.perfectgolfevent.com/"
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const events = [
     location: "Adams Pointe Golf Club",
     time: "Shotgun Start 8:00am",
     hasLink: true,
-    link: "#"
+    link: "https://mo77.younglife.team/2026-golf-tournament"
   },
   {
     id: 3,
@@ -224,7 +224,13 @@ export function TournamentsTimeline() {
                       variant="outline"
                       className="w-full sm:w-auto h-[52px] px-8 rounded-none border-black text-black hover:bg-primary hover:border-primary hover:text-white uppercase tracking-widest font-bold transition-colors duration-300"
                     >
-                      <Link href={event.link!}>Learn More Here</Link>
+                      <Link 
+                        href={event.link!} 
+                        target={event.link?.startsWith('http') ? "_blank" : undefined}
+                        rel={event.link?.startsWith('http') ? "noopener noreferrer" : undefined}
+                      >
+                        Learn More Here
+                      </Link>
                     </Button>
                   )}
                 </div>
