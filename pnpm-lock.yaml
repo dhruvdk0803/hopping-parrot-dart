@@ -95,6 +95,9 @@ dependencies:
   '@supabase/auth-ui-shared':
     specifier: ^0.1.8
     version: 0.1.8(@supabase/supabase-js@2.99.3)
+  '@supabase/supabase-js':
+    specifier: ^2.99.3
+    version: 2.99.3
   class-variance-authority:
     specifier: ^0.7.1
     version: 0.7.1

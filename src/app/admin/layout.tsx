@@ -24,7 +24,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     checkAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event: any, session: any) => {
       if (session) {
         setIsAuthenticated(true);
       } else {

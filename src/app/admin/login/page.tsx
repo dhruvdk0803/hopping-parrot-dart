@@ -17,7 +17,7 @@ export default function AdminLogin() {
     };
     checkSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event: any, session: any) => {
       if (session) {
         router.push('/admin');
       }
