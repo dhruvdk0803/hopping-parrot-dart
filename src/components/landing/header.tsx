@@ -5,6 +5,7 @@ import { useScroll, useMotionValueEvent, AnimatePresence, motion } from "framer-
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown, ArrowUpRight, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface HeaderProps {
   variant?: "transparent" | "solid";
@@ -39,12 +40,26 @@ export function Header({ variant = "transparent" }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openAccordions, setOpenAccordions] = useState<string[]>([]);
+  const [user, setUser] = useState<any>(null);
 
   const isTransparent = variant === 'transparent';
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
   });
+
+  // Listen for auth state changes
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user || null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -127,9 +142,16 @@ export function Header({ variant = "transparent" }: HeaderProps) {
 
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-6">
-            <Link href="/login" className="hover:text-primary transition-colors" aria-label="Login">
-              <User className="w-5 h-5" />
-            </Link>
+            {user ? (
+              <Link href="/dashboard" className="hover:text-primary transition-colors flex items-center gap-2 text-sm font-bold uppercase tracking-widest" aria-label="Dashboard">
+                <User className="w-5 h-5" />
+                Account
+              </Link>
+            ) : (
+              <Link href="/login" className="hover:text-primary transition-colors" aria-label="Login">
+                <User className="w-5 h-5" />
+              </Link>
+            )}
             <Button 
               asChild
               className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold h-12 px-8 transition-all duration-300 hover:scale-[1.02]"
@@ -228,14 +250,25 @@ export function Header({ variant = "transparent" }: HeaderProps) {
                   );
                 })}
                 
-                <Link 
-                  href="/login" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors mt-4"
-                >
-                  <User className="w-6 h-6" />
-                  Login
-                </Link>
+                {user ? (
+                  <Link 
+                    href="/dashboard" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-3 py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors mt-4"
+                  >
+                    <User className="w-6 h-6" />
+                    My Account
+                  </Link>
+                ) : (
+                  <Link 
+                    href="/login" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-3 py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors mt-4"
+                  >
+                    <User className="w-6 h-6" />
+                    Login
+                  </Link>
+                )}
               </nav>
             </div>
 

@@ -4,13 +4,50 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle auth logic here
+    setLoading(true);
+
+    try {
+      if (isLogin) {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        toast.success("Welcome back!");
+        router.push("/dashboard");
+      } else {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              first_name: firstName,
+              last_name: lastName,
+            }
+          }
+        });
+        if (error) throw error;
+        toast.success("Account created successfully! You can now log in.");
+        setIsLogin(true);
+        setPassword(""); // Clear password so they can type it to log in
+      }
+    } catch (error: any) {
+      toast.error(error.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,6 +104,8 @@ export function AuthForm() {
                   <input
                     type="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none"
                   />
                 </div>
@@ -82,14 +121,17 @@ export function AuthForm() {
                   <input
                     type="password"
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none"
                   />
                 </div>
                 <Button
                   type="submit"
+                  disabled={loading}
                   className="w-full h-[52px] rounded-none bg-primary hover:bg-black text-white text-sm uppercase tracking-widest font-bold transition-colors duration-300 mt-4"
                 >
-                  Login
+                  {loading ? "Logging in..." : "Login"}
                 </Button>
               </form>
               <p className="text-center text-sm text-muted-foreground mt-8">
@@ -121,6 +163,8 @@ export function AuthForm() {
                     <input
                       type="text"
                       required
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none"
                     />
                   </div>
@@ -131,6 +175,8 @@ export function AuthForm() {
                     <input
                       type="text"
                       required
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                       className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none"
                     />
                   </div>
@@ -142,6 +188,8 @@ export function AuthForm() {
                   <input
                     type="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none"
                   />
                 </div>
@@ -152,14 +200,17 @@ export function AuthForm() {
                   <input
                     type="password"
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none"
                   />
                 </div>
                 <Button
                   type="submit"
+                  disabled={loading}
                   className="w-full h-[52px] rounded-none bg-primary hover:bg-black text-white text-sm uppercase tracking-widest font-bold transition-colors duration-300 mt-4"
                 >
-                  Create Account
+                  {loading ? "Creating Account..." : "Create Account"}
                 </Button>
               </form>
               <p className="text-center text-sm text-muted-foreground mt-8">
