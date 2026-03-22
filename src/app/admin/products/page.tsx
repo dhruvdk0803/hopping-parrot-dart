@@ -1,69 +1,112 @@
 "use client";
-import { useState } from 'react';
-import { useProducts } from '@/hooks/use-products';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Plus, Edit, Trash2, Check, X } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function AdminProducts() {
-  const { products, addProduct, updateProduct, deleteProduct, mounted } = useProducts();
+  const [products, setProducts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   
   const initialForm = {
     name: '',
     price: '',
-    category: 'Serving Kingdom Swag',
-    type: 'Product',
+    category_id: '',
+    type: 'product',
     image_url: '',
     description: '',
-    interval: ''
   };
   
   const [formData, setFormData] = useState(initialForm);
 
-  if (!mounted) return null;
+  const fetchData = async () => {
+    const [prodRes, catRes] = await Promise.all([
+      supabase.from('products').select('*').order('created_at', { ascending: false }),
+      supabase.from('Catagories').select('*')
+    ]);
+    if (prodRes.data) setProducts(prodRes.data);
+    if (catRes.data) {
+      setCategories(catRes.data);
+      if (catRes.data.length > 0 && !formData.category_id) {
+        setFormData(prev => ({ ...prev, category_id: catRes.data[0].id }));
+      }
+    }
+  };
 
-  const handleSave = (status: 'draft' | 'published') => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSave = async (status: 'draft' | 'published') => {
+    if (!formData.name || !formData.price || !formData.category_id) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
     const productData = {
       name: formData.name,
       price: parseFloat(formData.price) || 0,
-      category: formData.category,
-      type: formData.type as 'Product' | 'Subscription',
+      category_id: formData.category_id,
+      type: formData.type,
       image_url: formData.image_url,
       description: formData.description,
-      interval: formData.interval,
       status
     };
 
     if (editingId) {
-      updateProduct(editingId, productData);
+      const { error } = await supabase.from('products').update(productData).eq('id', editingId);
+      if (error) toast.error(error.message);
+      else toast.success("Product updated");
     } else {
-      addProduct(productData);
+      const { error } = await supabase.from('products').insert([productData]);
+      if (error) toast.error(error.message);
+      else toast.success("Product added");
     }
 
     setIsAdding(false);
     setEditingId(null);
-    setFormData(initialForm);
+    setFormData({ ...initialForm, category_id: categories[0]?.id || '' });
+    fetchData();
   };
 
   const handleEdit = (product: any) => {
     setFormData({
       name: product.name,
       price: product.price.toString(),
-      category: product.category,
+      category_id: product.category_id,
       type: product.type,
       image_url: product.image_url || '',
       description: product.description || '',
-      interval: product.interval || ''
     });
     setEditingId(product.id);
     setIsAdding(true);
   };
 
-  const toggleStatus = (product: any) => {
-    updateProduct(product.id, { 
-      status: product.status === 'published' ? 'draft' : 'published' 
-    });
+  const toggleStatus = async (product: any) => {
+    const newStatus = product.status === 'published' ? 'draft' : 'published';
+    const { error } = await supabase.from('products').update({ status: newStatus }).eq('id', product.id);
+    if (error) toast.error(error.message);
+    else {
+      toast.success(`Product ${newStatus}`);
+      fetchData();
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure?')) return;
+    const { error } = await supabase.from('products').delete().eq('id', id);
+    if (error) toast.error(error.message);
+    else {
+      toast.success("Product deleted");
+      fetchData();
+    }
+  };
+
+  const getCategoryName = (id: string) => {
+    return categories.find(c => c.id === id)?.name || 'Unknown';
   };
 
   return (
@@ -71,10 +114,7 @@ export default function AdminProducts() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold tracking-tight uppercase">Products</h1>
         {!isAdding && (
-          <Button 
-            onClick={() => setIsAdding(true)}
-            className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold"
-          >
+          <Button onClick={() => setIsAdding(true)} className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold">
             <Plus size={18} className="mr-2" /> Add Product
           </Button>
         )}
@@ -96,30 +136,24 @@ export default function AdminProducts() {
               <input type="number" step="0.01" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" required />
             </div>
             <div className="flex flex-col">
-              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Category</label>
-              <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none">
-                <option value="Serving Kingdom Swag">Serving Kingdom Swag</option>
-                <option value="Loading Golf Swag">Loading Golf Swag</option>
-                <option value="Membership Packages">Membership Packages</option>
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Category *</label>
+              <select value={formData.category_id} onChange={e => setFormData({...formData, category_id: e.target.value})} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none">
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Type</label>
               <select value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none">
-                <option value="Product">Product</option>
-                <option value="Subscription">Subscription</option>
+                <option value="product">Product</option>
+                <option value="subscription">Subscription</option>
               </select>
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Image URL</label>
               <input type="text" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="https://..." className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
             </div>
-            {formData.type === 'Subscription' && (
-              <div className="flex flex-col md:col-span-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Interval (e.g., "per month")</label>
-                <input type="text" value={formData.interval} onChange={e => setFormData({...formData, interval: e.target.value})} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
-              </div>
-            )}
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Description</label>
               <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={3} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none resize-none"></textarea>
@@ -133,7 +167,7 @@ export default function AdminProducts() {
             <Button onClick={() => handleSave('draft')} variant="outline" className="rounded-none border-black text-black hover:bg-gray-100 uppercase tracking-widest font-bold px-8">
               Save as Draft
             </Button>
-            <Button onClick={() => { setIsAdding(false); setEditingId(null); setFormData(initialForm); }} variant="ghost" className="rounded-none text-muted-foreground hover:text-black uppercase tracking-widest font-bold px-8 ml-auto">
+            <Button onClick={() => { setIsAdding(false); setEditingId(null); setFormData({ ...initialForm, category_id: categories[0]?.id || '' }); }} variant="ghost" className="rounded-none text-muted-foreground hover:text-black uppercase tracking-widest font-bold px-8 ml-auto">
               Cancel
             </Button>
           </div>
@@ -164,8 +198,8 @@ export default function AdminProducts() {
                     )}
                   </td>
                   <td className="p-4 font-medium">{product.name}</td>
-                  <td className="p-4">${product.price.toFixed(2)} {product.interval && <span className="text-xs text-muted-foreground block">{product.interval}</span>}</td>
-                  <td className="p-4 text-sm text-muted-foreground">{product.category}</td>
+                  <td className="p-4">${Number(product.price).toFixed(2)}</td>
+                  <td className="p-4 text-sm text-muted-foreground">{getCategoryName(product.category_id)}</td>
                   <td className="p-4">
                     <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider ${product.status === 'published' ? 'bg-primary/10 text-primary' : 'bg-gray-200 text-gray-600'}`}>
                       {product.status}
@@ -178,7 +212,7 @@ export default function AdminProducts() {
                     <button onClick={() => handleEdit(product)} className="p-2 text-muted-foreground hover:text-primary transition-colors" title="Edit">
                       <Edit size={18} />
                     </button>
-                    <button onClick={() => { if(confirm('Are you sure?')) deleteProduct(product.id); }} className="p-2 text-muted-foreground hover:text-red-500 transition-colors" title="Delete">
+                    <button onClick={() => handleDelete(product.id)} className="p-2 text-muted-foreground hover:text-red-500 transition-colors" title="Delete">
                       <Trash2 size={18} />
                     </button>
                   </td>

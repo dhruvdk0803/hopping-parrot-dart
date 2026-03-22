@@ -2,34 +2,52 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { LayoutDashboard, Package, LogOut } from 'lucide-react';
+import { LayoutDashboard, Package, LogOut, Tags, ShoppingCart } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isAuth, setIsAuth] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const auth = localStorage.getItem('admin_auth');
-    if (auth === 'true') {
-      setIsAuth(true);
-    } else if (pathname !== '/admin/login') {
-      router.push('/admin/login');
-    }
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setIsAuthenticated(true);
+      } else if (pathname !== '/admin/login') {
+        router.push('/admin/login');
+      }
+      setIsLoading(false);
+    };
+
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+        if (pathname !== '/admin/login') {
+          router.push('/admin/login');
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, [pathname, router]);
 
-  if (!mounted) return null;
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
   if (pathname === '/admin/login') {
     return <>{children}</>;
   }
 
-  if (!isAuth) return null;
+  if (!isAuthenticated) return null;
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_auth');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     router.push('/admin/login');
   };
 
@@ -48,6 +66,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin/products" className={`flex items-center gap-3 px-4 py-3 rounded-none transition-colors ${pathname?.startsWith('/admin/products') ? 'bg-primary text-white' : 'hover:bg-white/10'}`}>
             <Package size={20} />
             <span className="font-medium uppercase tracking-wider text-sm">Products</span>
+          </Link>
+          <Link href="/admin/categories" className={`flex items-center gap-3 px-4 py-3 rounded-none transition-colors ${pathname?.startsWith('/admin/categories') ? 'bg-primary text-white' : 'hover:bg-white/10'}`}>
+            <Tags size={20} />
+            <span className="font-medium uppercase tracking-wider text-sm">Categories</span>
+          </Link>
+          <Link href="/admin/orders" className={`flex items-center gap-3 px-4 py-3 rounded-none transition-colors ${pathname?.startsWith('/admin/orders') ? 'bg-primary text-white' : 'hover:bg-white/10'}`}>
+            <ShoppingCart size={20} />
+            <span className="font-medium uppercase tracking-wider text-sm">Orders</span>
           </Link>
         </nav>
         <div className="p-4 border-t border-white/10">
