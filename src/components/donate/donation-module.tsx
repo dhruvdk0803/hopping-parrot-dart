@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { toast } from "sonner";
 
 const PRESET_AMOUNTS = [10, 20, 30, 40];
 const FEE_PERCENTAGE = 0.03;
@@ -19,6 +20,16 @@ export function DonationModule() {
     
   const feeAmount = coverFee ? baseAmount * FEE_PERCENTAGE : 0;
   const totalAmount = baseAmount + feeAmount;
+
+  const handleDonate = () => {
+    if (totalAmount <= 0) {
+      toast.error("Please select a valid donation amount.");
+      return;
+    }
+    toast.success("Thank you for your generosity! Payment integration coming soon.", {
+      style: { borderRadius: '0px', border: '1px solid black', background: 'white', color: 'black' }
+    });
+  };
 
   return (
     <section className="pb-24 sm:pb-32 bg-white text-black">
@@ -136,6 +147,7 @@ export function DonationModule() {
 
           {/* Submit Button */}
           <Button 
+            onClick={handleDonate}
             className="w-full h-14 rounded-none bg-primary hover:bg-black text-white text-lg uppercase tracking-widest font-bold transition-all duration-300 hover:scale-[1.02]"
           >
             Donate ${totalAmount > 0 ? totalAmount.toFixed(2) : "0.00"}

@@ -21,18 +21,23 @@ export function StoreContent() {
         supabase.from('products').select('*').eq('status', 'published')
       ]);
 
-      if (catRes.data && catRes.data.length > 0) {
-        setCategories(catRes.data);
-        setActiveTab(catRes.data[0].id);
-      }
-      
       if (prodRes.data) {
-        // Separate subscriptions (memberships) from regular products (swag)
         const subs = prodRes.data.filter(p => p.type === 'subscription');
         const swag = prodRes.data.filter(p => p.type !== 'subscription');
         
         setMemberships(subs);
         setSwagProducts(swag);
+
+        // Only show categories that have swag products in them
+        if (catRes.data) {
+          const swagCategories = catRes.data.filter(cat => 
+            swag.some(p => p.category_id === cat.id)
+          );
+          setCategories(swagCategories);
+          if (swagCategories.length > 0) {
+            setActiveTab(swagCategories[0].id);
+          }
+        }
       }
       setLoading(false);
     };

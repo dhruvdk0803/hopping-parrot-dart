@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 export function SponsorMemberships() {
   return (
@@ -56,8 +57,8 @@ export function SponsorMemberships() {
                 </li>
               ))}
             </ul>
-            <Button className="w-full h-[52px] rounded-none bg-primary hover:bg-primary/90 text-white text-base uppercase tracking-widest font-bold transition-colors">
-              Subscribe
+            <Button asChild className="w-full h-[52px] rounded-none bg-primary hover:bg-primary/90 text-white text-base uppercase tracking-widest font-bold transition-colors">
+              <Link href="/store">Subscribe</Link>
             </Button>
           </motion.div>
 
@@ -83,8 +84,8 @@ export function SponsorMemberships() {
             <p className="text-base leading-relaxed mb-8 flex-grow">
               Participate in 3 Serving Kingdom KC events of your choice in 2026/2027.
             </p>
-            <Button className="w-full h-[52px] rounded-none bg-black hover:bg-gray-800 text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto">
-              Subscribe
+            <Button asChild className="w-full h-[52px] rounded-none bg-black hover:bg-gray-800 text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto">
+              <Link href="/store">Subscribe</Link>
             </Button>
           </motion.div>
         </div>

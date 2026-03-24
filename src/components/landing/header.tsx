@@ -21,7 +21,7 @@ const navItems = [
     items: [
       { label: "Our Vision", href: "/vision" },
       { label: "Tribe", href: "/tribe" },
-      { label: "Golf Lessons", href: "#" },
+      { label: "Golf Lessons", href: "https://loadinggolf.com/", external: true },
     ]
   },
   { label: "Podcast", href: "https://www.youtube.com/@JeffMcCubbins", external: true },

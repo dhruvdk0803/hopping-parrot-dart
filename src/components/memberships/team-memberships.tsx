@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function TeamMemberships() {
   return (
@@ -41,8 +42,8 @@ export function TeamMemberships() {
             <p className="text-base leading-relaxed mb-10 flex-grow text-gray-300">
               Lock in your 4-person team for 6 events in 2026/2027.
             </p>
-            <Button className="w-full h-[52px] rounded-none bg-primary hover:bg-primary/90 text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto">
-              Subscribe
+            <Button asChild className="w-full h-[52px] rounded-none bg-primary hover:bg-primary/90 text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto">
+              <Link href="/store">Subscribe</Link>
             </Button>
           </motion.div>
 
@@ -68,8 +69,8 @@ export function TeamMemberships() {
             <p className="text-base leading-relaxed mb-10 flex-grow text-gray-300">
               Secure your team of 4 players for 3 events in 2026/2027.
             </p>
-            <Button className="w-full h-[52px] rounded-none bg-transparent border border-white hover:bg-white hover:text-black text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto">
-              Subscribe
+            <Button asChild className="w-full h-[52px] rounded-none bg-transparent border border-white hover:bg-white hover:text-black text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto">
+              <Link href="/store">Subscribe</Link>
             </Button>
           </motion.div>
         </div>
