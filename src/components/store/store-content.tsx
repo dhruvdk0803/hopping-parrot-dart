@@ -5,6 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { Check } from "lucide-react";
+
+const MEMBERSHIPS = [
+  { id: 'sub-1', name: 'Custom Sponsor Membership', price: 416.67, type: 'subscription', description: 'Custom tailored sponsorship package for maximum impact.' },
+  { id: 'sub-5', name: 'Sponsor with Team 6 Package', price: 700, type: 'subscription', description: 'Includes sponsor marketing + a 4-person team in 6 events.' },
+  { id: 'sub-4', name: 'Sponsor with Team 3 Package', price: 400, type: 'subscription', description: 'Includes sponsor marketing + a 4-person team in 3 events.' },
+  { id: 'sub-3', name: 'Team 6 Package', price: 400, type: 'subscription', description: 'Lock in your 4-person team for 6 events.' },
+  { id: 'sub-2', name: 'Team 3 Package', price: 250, type: 'subscription', description: 'Secure your team of 4 players for 3 events.' },
+  { id: 'sub-7', name: 'Sponsorship 6 Package', price: 225, type: 'subscription', description: 'Participate in 6 events of your choice.' },
+  { id: 'sub-6', name: 'Sponsorship 3 Package', price: 125, type: 'subscription', description: 'Participate in 3 events of your choice.' },
+];
 
 export function StoreContent() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -33,7 +44,7 @@ export function StoreContent() {
     fetchStoreData();
   }, []);
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: any, isSubscription = false) => {
     setCart(prev => [...prev, product]);
     toast.success(`${product.name} added to cart`, {
       style: { borderRadius: '0px', border: '1px solid black', background: 'white', color: 'black' }
@@ -68,49 +79,102 @@ export function StoreContent() {
   const activeProducts = products.filter(p => p.category_id === activeTab);
 
   return (
-    <section className="py-16 sm:py-24 bg-white text-black min-h-screen relative">
-      <div className="container mx-auto px-4">
-        
-        {/* Cart Summary (Floating) */}
-        {cart.length > 0 && (
-          <div className="fixed bottom-8 right-8 z-50 bg-black text-white p-6 shadow-2xl border border-white/20 max-w-sm w-full">
-            <h3 className="font-bold uppercase tracking-widest mb-4">Your Cart ({cart.length})</h3>
-            <div className="flex justify-between items-center mb-6">
-              <span className="text-gray-400">Total:</span>
-              <span className="text-xl font-bold">${cart.reduce((sum, item) => sum + Number(item.price), 0).toFixed(2)}</span>
-            </div>
-            <Button 
-              onClick={handleCheckout}
-              className="w-full h-12 rounded-none bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold transition-colors"
-            >
-              Checkout
-            </Button>
+    <div className="bg-white text-black min-h-screen relative pb-24">
+      
+      {/* Cart Summary (Floating) */}
+      {cart.length > 0 && (
+        <div className="fixed bottom-8 right-8 z-50 bg-black text-white p-6 shadow-2xl border border-white/20 max-w-sm w-full">
+          <h3 className="font-bold uppercase tracking-widest mb-4">Your Cart ({cart.length})</h3>
+          <div className="flex justify-between items-center mb-6">
+            <span className="text-gray-400">Total:</span>
+            <span className="text-xl font-bold">${cart.reduce((sum, item) => sum + Number(item.price), 0).toFixed(2)}</span>
           </div>
-        )}
-
-        {/* Category Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-16 border-b border-black/10 pb-6">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveTab(cat.id)}
-              className={`text-sm md:text-base font-bold uppercase tracking-widest transition-colors duration-300 relative pb-2 ${
-                activeTab === cat.id ? "text-primary" : "text-muted-foreground hover:text-black"
-              }`}
-            >
-              {cat.name}
-              {activeTab === cat.id && (
-                <motion.div 
-                  layoutId="storeTab"
-                  className="absolute -bottom-[26px] left-0 right-0 h-[2px] bg-primary"
-                />
-              )}
-            </button>
-          ))}
+          <Button 
+            onClick={handleCheckout}
+            className="w-full h-12 rounded-none bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold transition-colors"
+          >
+            Checkout
+          </Button>
         </div>
+      )}
 
-        {/* Content Area */}
-        <div className="max-w-7xl mx-auto">
+      {/* Memberships Section */}
+      <section className="py-16 sm:py-24 border-b border-black/10 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter uppercase">Memberships & Packages</h2>
+            <div className="w-12 h-1 bg-primary mx-auto mt-6 mb-6"></div>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Secure your spot in our upcoming events and maximize your impact with our monthly subscription packages.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {MEMBERSHIPS.map((membership, index) => (
+              <motion.div
+                key={membership.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="bg-white border border-black/10 p-8 flex flex-col hover:border-primary hover:shadow-xl transition-all duration-300 group"
+              >
+                <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4 min-h-[40px]">
+                  {membership.name}
+                </h3>
+                <div className="mb-6">
+                  <span className="text-4xl font-bold tracking-tighter group-hover:text-primary transition-colors">
+                    ${membership.price.toFixed(2)}
+                  </span>
+                  <span className="block text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
+                    per month
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed mb-8 flex-grow text-gray-600">
+                  {membership.description}
+                </p>
+                <Button 
+                  onClick={() => handleAddToCart(membership, true)}
+                  className="w-full h-12 rounded-none bg-black hover:bg-primary text-white text-xs uppercase tracking-widest font-bold transition-colors mt-auto"
+                >
+                  Subscribe
+                </Button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Swag / Merchandise Section */}
+      <section className="py-16 sm:py-24">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter uppercase">Merchandise & Swag</h2>
+            <div className="w-12 h-1 bg-primary mx-auto mt-6"></div>
+          </div>
+
+          {/* Category Navigation */}
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 border-b border-black/10 pb-6">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveTab(cat.id)}
+                className={`text-sm md:text-base font-bold uppercase tracking-widest transition-colors duration-300 relative pb-2 ${
+                  activeTab === cat.id ? "text-primary" : "text-muted-foreground hover:text-black"
+                }`}
+              >
+                {cat.name}
+                {activeTab === cat.id && (
+                  <motion.div 
+                    layoutId="storeTab"
+                    className="absolute -bottom-[26px] left-0 right-0 h-[2px] bg-primary"
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Products Grid */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -150,7 +214,7 @@ export function StoreContent() {
             </motion.div>
           </AnimatePresence>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
