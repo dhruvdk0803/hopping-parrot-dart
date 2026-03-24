@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('order_id');
   const [status, setStatus] = useState('Processing your order...');
@@ -48,5 +48,13 @@ export default function SuccessPage() {
         </Button>
       </div>
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50">Loading...</div>}>
+      <SuccessContent />
+    </Suspense>
   );
 }
