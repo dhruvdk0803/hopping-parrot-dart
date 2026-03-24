@@ -112,10 +112,10 @@ export default function AdminProducts() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold tracking-tight uppercase">Products</h1>
+        <h1 className="text-3xl font-bold tracking-tight uppercase">Products & Memberships</h1>
         {!isAdding && (
           <Button onClick={() => setIsAdding(true)} className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold">
-            <Plus size={18} className="mr-2" /> Add Product
+            <Plus size={18} className="mr-2" /> Add Item
           </Button>
         )}
       </div>
@@ -123,12 +123,12 @@ export default function AdminProducts() {
       {isAdding && (
         <div className="bg-white p-8 border border-black/10 shadow-sm mb-8">
           <h2 className="text-xl font-bold uppercase tracking-widest mb-6">
-            {editingId ? 'Edit Product' : 'Add New Product'}
+            {editingId ? 'Edit Item' : 'Add New Item'}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="flex flex-col">
-              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Product Name *</label>
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Name *</label>
               <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" required />
             </div>
             <div className="flex flex-col">
@@ -146,17 +146,17 @@ export default function AdminProducts() {
             <div className="flex flex-col">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Type</label>
               <select value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none">
-                <option value="product">Product</option>
-                <option value="subscription">Subscription</option>
+                <option value="product">Product (Swag)</option>
+                <option value="subscription">Subscription (Membership)</option>
               </select>
             </div>
             <div className="flex flex-col md:col-span-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Image URL</label>
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Image URL (Optional for Memberships)</label>
               <input type="text" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="https://..." className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Description</label>
-              <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={3} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none resize-none"></textarea>
+              <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={4} className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none resize-none"></textarea>
             </div>
           </div>
 
@@ -181,6 +181,7 @@ export default function AdminProducts() {
               <tr className="bg-gray-50 border-b border-black/10">
                 <th className="p-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">Image</th>
                 <th className="p-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">Name</th>
+                <th className="p-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">Type</th>
                 <th className="p-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">Price</th>
                 <th className="p-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">Category</th>
                 <th className="p-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">Status</th>
@@ -198,6 +199,11 @@ export default function AdminProducts() {
                     )}
                   </td>
                   <td className="p-4 font-medium">{product.name}</td>
+                  <td className="p-4">
+                    <span className={`inline-flex items-center px-2 py-1 text-[10px] font-bold uppercase tracking-wider ${product.type === 'subscription' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
+                      {product.type === 'subscription' ? 'Membership' : 'Product'}
+                    </span>
+                  </td>
                   <td className="p-4">${Number(product.price).toFixed(2)}</td>
                   <td className="p-4 text-sm text-muted-foreground">{getCategoryName(product.category_id)}</td>
                   <td className="p-4">
@@ -220,7 +226,7 @@ export default function AdminProducts() {
               ))}
               {products.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-muted-foreground">No products found.</td>
+                  <td colSpan={7} className="p-8 text-center text-muted-foreground">No items found.</td>
                 </tr>
               )}
             </tbody>

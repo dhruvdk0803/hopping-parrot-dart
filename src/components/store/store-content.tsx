@@ -5,21 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { Check } from "lucide-react";
-
-const MEMBERSHIPS = [
-  { id: 'sub-1', name: 'Custom Sponsor Membership', price: 416.67, type: 'subscription', description: 'Custom tailored sponsorship package for maximum impact.' },
-  { id: 'sub-5', name: 'Sponsor with Team 6 Package', price: 700, type: 'subscription', description: 'Includes sponsor marketing + a 4-person team in 6 events.' },
-  { id: 'sub-4', name: 'Sponsor with Team 3 Package', price: 400, type: 'subscription', description: 'Includes sponsor marketing + a 4-person team in 3 events.' },
-  { id: 'sub-3', name: 'Team 6 Package', price: 400, type: 'subscription', description: 'Lock in your 4-person team for 6 events.' },
-  { id: 'sub-2', name: 'Team 3 Package', price: 250, type: 'subscription', description: 'Secure your team of 4 players for 3 events.' },
-  { id: 'sub-7', name: 'Sponsorship 6 Package', price: 225, type: 'subscription', description: 'Participate in 6 events of your choice.' },
-  { id: 'sub-6', name: 'Sponsorship 3 Package', price: 125, type: 'subscription', description: 'Participate in 3 events of your choice.' },
-];
 
 export function StoreContent() {
   const [categories, setCategories] = useState<any[]>([]);
-  const [products, setProducts] = useState<any[]>([]);
+  const [swagProducts, setSwagProducts] = useState<any[]>([]);
+  const [memberships, setMemberships] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState<any[]>([]);
@@ -35,8 +25,14 @@ export function StoreContent() {
         setCategories(catRes.data);
         setActiveTab(catRes.data[0].id);
       }
+      
       if (prodRes.data) {
-        setProducts(prodRes.data);
+        // Separate subscriptions (memberships) from regular products (swag)
+        const subs = prodRes.data.filter(p => p.type === 'subscription');
+        const swag = prodRes.data.filter(p => p.type !== 'subscription');
+        
+        setMemberships(subs);
+        setSwagProducts(swag);
       }
       setLoading(false);
     };
@@ -76,7 +72,7 @@ export function StoreContent() {
     return <div className="min-h-[50vh] flex items-center justify-center">Loading store...</div>;
   }
 
-  const activeProducts = products.filter(p => p.category_id === activeTab);
+  const activeProducts = swagProducts.filter(p => p.category_id === activeTab);
 
   return (
     <div className="bg-white text-black min-h-screen relative pb-24">
@@ -109,39 +105,45 @@ export function StoreContent() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {MEMBERSHIPS.map((membership, index) => (
-              <motion.div
-                key={membership.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-white border border-black/10 p-8 flex flex-col hover:border-primary hover:shadow-xl transition-all duration-300 group"
-              >
-                <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4 min-h-[40px]">
-                  {membership.name}
-                </h3>
-                <div className="mb-6">
-                  <span className="text-4xl font-bold tracking-tighter group-hover:text-primary transition-colors">
-                    ${membership.price.toFixed(2)}
-                  </span>
-                  <span className="block text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
-                    per month
-                  </span>
-                </div>
-                <p className="text-sm leading-relaxed mb-8 flex-grow text-gray-600">
-                  {membership.description}
-                </p>
-                <Button 
-                  onClick={() => handleAddToCart(membership, true)}
-                  className="w-full h-12 rounded-none bg-black hover:bg-primary text-white text-xs uppercase tracking-widest font-bold transition-colors mt-auto"
+          {memberships.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              No membership packages available at the moment.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {memberships.map((membership, index) => (
+                <motion.div
+                  key={membership.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="bg-white border border-black/10 p-8 flex flex-col hover:border-primary hover:shadow-xl transition-all duration-300 group"
                 >
-                  Subscribe
-                </Button>
-              </motion.div>
-            ))}
-          </div>
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4 min-h-[40px]">
+                    {membership.name}
+                  </h3>
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold tracking-tighter group-hover:text-primary transition-colors">
+                      ${Number(membership.price).toFixed(2)}
+                    </span>
+                    <span className="block text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
+                      per month
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed mb-8 flex-grow text-gray-600 whitespace-pre-wrap">
+                    {membership.description}
+                  </p>
+                  <Button 
+                    onClick={() => handleAddToCart(membership, true)}
+                    className="w-full h-12 rounded-none bg-black hover:bg-primary text-white text-xs uppercase tracking-widest font-bold transition-colors mt-auto"
+                  >
+                    Subscribe
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -154,25 +156,27 @@ export function StoreContent() {
           </div>
 
           {/* Category Navigation */}
-          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 border-b border-black/10 pb-6">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveTab(cat.id)}
-                className={`text-sm md:text-base font-bold uppercase tracking-widest transition-colors duration-300 relative pb-2 ${
-                  activeTab === cat.id ? "text-primary" : "text-muted-foreground hover:text-black"
-                }`}
-              >
-                {cat.name}
-                {activeTab === cat.id && (
-                  <motion.div 
-                    layoutId="storeTab"
-                    className="absolute -bottom-[26px] left-0 right-0 h-[2px] bg-primary"
-                  />
-                )}
-              </button>
-            ))}
-          </div>
+          {categories.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 border-b border-black/10 pb-6">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveTab(cat.id)}
+                  className={`text-sm md:text-base font-bold uppercase tracking-widest transition-colors duration-300 relative pb-2 ${
+                    activeTab === cat.id ? "text-primary" : "text-muted-foreground hover:text-black"
+                  }`}
+                >
+                  {cat.name}
+                  {activeTab === cat.id && (
+                    <motion.div 
+                      layoutId="storeTab"
+                      className="absolute -bottom-[26px] left-0 right-0 h-[2px] bg-primary"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Products Grid */}
           <AnimatePresence mode="wait">
@@ -198,7 +202,7 @@ export function StoreContent() {
                     )}
                   </div>
                   <h3 className="text-sm font-bold uppercase tracking-wider mb-2 line-clamp-2">{product.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow">{product.description}</p>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow whitespace-pre-wrap">{product.description}</p>
                   <p className="text-xl font-bold mb-6">${Number(product.price).toFixed(2)}</p>
                   <Button 
                     onClick={() => handleAddToCart(product)}
