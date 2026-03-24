@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 
-// 1. Create an inner component that uses useSearchParams
-function OrderProcessor() {
+export default function SuccessClient() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('order_id');
   const [status, setStatus] = useState('Processing your order...');
@@ -48,18 +47,5 @@ function OrderProcessor() {
         </Button>
       </div>
     </div>
-  );
-}
-
-// 2. Export a wrapper component that provides the Suspense boundary
-export function SuccessContent() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <div className="text-muted-foreground uppercase tracking-widest font-bold">Loading order details...</div>
-      </div>
-    }>
-      <OrderProcessor />
-    </Suspense>
   );
 }
