@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 
-export function SuccessContent() {
+// 1. Create an inner component that uses useSearchParams
+function OrderProcessor() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('order_id');
   const [status, setStatus] = useState('Processing your order...');
@@ -15,8 +16,6 @@ export function SuccessContent() {
   useEffect(() => {
     const updateOrder = async () => {
       if (orderId) {
-        // In a production app, this should be handled securely via Stripe Webhooks.
-        // For this implementation, we update the status on the success page return.
         const { error } = await supabase
           .from('orders')
           .update({ status: 'paid' })
@@ -49,5 +48,18 @@ export function SuccessContent() {
         </Button>
       </div>
     </div>
+  );
+}
+
+// 2. Export a wrapper component that provides the Suspense boundary
+export function SuccessContent() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+        <div className="text-muted-foreground uppercase tracking-widest font-bold">Loading order details...</div>
+      </div>
+    }>
+      <OrderProcessor />
+    </Suspense>
   );
 }
