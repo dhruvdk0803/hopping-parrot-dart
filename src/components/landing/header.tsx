@@ -11,7 +11,19 @@ interface HeaderProps {
   variant?: "transparent" | "solid";
 }
 
-const navItems = [
+type NavItem = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  hideOnDesktop?: boolean;
+  items?: {
+    label: string;
+    href: string;
+    external?: boolean;
+  }[];
+};
+
+const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Tournaments", href: "/tournaments" },
   { label: "Memberships", href: "/memberships-sponsorships" },
@@ -24,7 +36,7 @@ const navItems = [
       { label: "Golf Lessons", href: "https://loadinggolf.com/", external: true },
     ]
   },
-  { label: "Podcast", href: "https://www.youtube.com/@JeffMcCubbins", external: true },
+  { label: "Podcast", href: "/podcast" },
   {
     label: "Shop",
     items: [
