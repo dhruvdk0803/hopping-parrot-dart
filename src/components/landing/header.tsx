@@ -155,9 +155,8 @@ export function Header({ variant = "transparent" }: HeaderProps) {
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-6">
             {user ? (
-              <Link href="/dashboard" className="hover:text-primary transition-colors flex items-center gap-2 text-sm font-bold uppercase tracking-widest" aria-label="Dashboard">
+              <Link href="/dashboard" className="hover:text-primary transition-colors" aria-label="Dashboard">
                 <User className="w-5 h-5" />
-                Account
               </Link>
             ) : (
               <Link href="/login" className="hover:text-primary transition-colors" aria-label="Login">
