@@ -10,6 +10,7 @@ import { MediaPreview } from "@/components/landing/media-preview";
 import { ShopPreview } from "@/components/landing/shop-preview";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { CtaSection } from "@/components/landing/cta-section";
+import { OfficialPartnersPreview } from "@/components/landing/official-partners-preview";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <TestimonialsSection />
         <NonprofitsPreview />
         <MediaPreview />
+        <OfficialPartnersPreview />
         <ShopPreview />
         <CtaSection />
       </main>

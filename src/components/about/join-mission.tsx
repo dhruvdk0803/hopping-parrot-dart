@@ -21,7 +21,7 @@ export function AboutJoinMission() {
           
           <div className="space-y-8 text-xl md:text-3xl leading-snug text-gray-300 mb-16 font-medium">
             <p>
-              Whether you are a nonprofit looking to elevate your next fundraising event, a business seeking impactful sponsorship opportunities, or an individual who wants to play golf for a cause, there is a place for you in our tribe.
+              Whether you are a nonprofit looking to elevate your next fundraising event, a business seeking impactful sponsorship opportunities, or an individual who wants to play golf for a cause, there is a place for you among our Official Partners.
             </p>
             <p>
               Together, we can make a lasting difference. We look forward to discussing how we can help your nonprofit or how you can get involved in our upcoming events.

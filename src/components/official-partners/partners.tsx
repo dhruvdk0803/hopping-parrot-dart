@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -46,7 +46,7 @@ const partners = [
   }
 ];
 
-export function TribePartners() {
+export function OfficialPartnersList() {
   return (
     <section className="bg-white text-black pb-24 sm:pb-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

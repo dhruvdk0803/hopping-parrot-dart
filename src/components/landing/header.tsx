@@ -32,7 +32,7 @@ const navItems: NavItem[] = [
     label: "About",
     items: [
       { label: "Our Vision", href: "/about-us-our-vision" },
-      { label: "Tribe", href: "/tribe" },
+      { label: "Official Partners", href: "/official-partners" },
       { label: "Golf Lessons", href: "https://loadinggolf.com/", external: true },
     ]
   },

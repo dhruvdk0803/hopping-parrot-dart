@@ -11,7 +11,7 @@ const partners = [
   "Golf Ranch"
 ];
 
-export function TribePreview() {
+export function OfficialPartnersPreview() {
   return (
     <section className="py-24 sm:py-32 bg-white text-black">
       <div className="container mx-auto px-4">
@@ -22,7 +22,7 @@ export function TribePreview() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">Our Tribe</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">Official Partners</h2>
             <div className="w-12 h-1 bg-primary mt-6"></div>
           </motion.div>
           
@@ -33,7 +33,7 @@ export function TribePreview() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-none border-black text-black hover:bg-primary hover:border-primary hover:text-white uppercase tracking-widest font-bold transition-colors duration-300">
-              <Link href="/tribe">Meet the Tribe</Link>
+              <Link href="/official-partners">Meet the Official Partners</Link>
             </Button>
           </motion.div>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-export function TribeIntro() {
+export function OfficialPartnersIntro() {
   return (
     <section className="py-24 sm:py-32 bg-white text-black">
       <div className="container mx-auto px-4">

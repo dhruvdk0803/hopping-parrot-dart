@@ -21,7 +21,7 @@ export function FinalCta() {
             Don't miss your opportunity to be part of something bigger. Our memberships and sponsorships are limited to ensure maximum value for our partners.
           </p>
           <p className="text-lg md:text-xl text-gray-600 mb-12 leading-relaxed">
-            Join our tribe of purpose-driven businesses and individuals today, and help us transform Kansas City through the power of golf.
+            Join our Official Partners today, a network of purpose-driven businesses and individuals, and help us transform Kansas City through the power of golf.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
