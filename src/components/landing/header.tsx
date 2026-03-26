@@ -19,7 +19,7 @@ const navItems = [
   {
     label: "About",
     items: [
-      { label: "Our Vision", href: "/vision" },
+      { label: "Our Vision", href: "/about-us-our-vision" },
       { label: "Tribe", href: "/tribe" },
       { label: "Golf Lessons", href: "https://loadinggolf.com/", external: true },
     ]
