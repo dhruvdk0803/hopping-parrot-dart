@@ -9,6 +9,7 @@ import { NonprofitsPreview } from "@/components/landing/nonprofits-preview";
 import { MediaPreview } from "@/components/landing/media-preview";
 import { ShopPreview } from "@/components/landing/shop-preview";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
+import { LogoStrip } from "@/components/landing/logo-strip";
 import { CtaSection } from "@/components/landing/cta-section";
 import { OfficialPartnersPreview } from "@/components/landing/official-partners-preview";
 
@@ -23,6 +24,7 @@ export default function Home() {
         <EventsSection />
         <MembershipsPreview />
         <TestimonialsSection />
+        <LogoStrip />
         <NonprofitsPreview />
         <MediaPreview />
         <OfficialPartnersPreview />
