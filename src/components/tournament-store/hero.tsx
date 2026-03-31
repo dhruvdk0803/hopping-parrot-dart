@@ -8,10 +8,10 @@ export function StoreHero() {
     <section className="relative text-white min-h-[80vh] flex items-center justify-center text-center p-4 pt-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1587174469332-3TT5b48cad33?q=80&w=2127&auto=format&fit=crop"
+          src="/hero-bg.png"
           alt="Serving Kingdom KC charity golf tournament store powered by Perfect Golf Event"
           fill
-          className="object-cover"
+          className="object-cover scale-110"
           priority
         />
         <div className="absolute inset-0 bg-black/80 z-10" />

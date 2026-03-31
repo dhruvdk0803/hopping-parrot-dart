@@ -9,10 +9,10 @@ export function AboutHero() {
     <section className="relative text-white min-h-[90vh] flex items-center justify-center text-center p-4 pt-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1587174469332-3TT5b48cad33?q=80&w=2127&auto=format&fit=crop"
+          src="/hero-bg.png"
           alt="Jeff McCubbins, founder of Serving Kingdom KC, at a charity golf tournament in Kansas City"
           fill
-          className="object-cover"
+          className="object-cover scale-110"
           priority
         />
         <div className="absolute inset-0 bg-black/75 z-10" />

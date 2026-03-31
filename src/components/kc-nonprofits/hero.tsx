@@ -9,10 +9,10 @@ export function KcNonprofitsHero() {
     <section className="relative text-white min-h-[70vh] flex flex-col items-center justify-center text-center p-4 pt-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2070&auto=format&fit=crop"
+          src="/hero-bg.png"
           alt="Serving Kingdom KC supporting local nonprofits in Kansas City through charity golf events"
           fill
-          className="object-cover"
+          className="object-cover scale-110"
           priority
         />
         <div className="absolute inset-0 bg-black/70 z-10" />

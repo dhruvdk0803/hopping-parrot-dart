@@ -8,10 +8,10 @@ export function GolfLessonsHero() {
     <section className="relative text-white min-h-[80vh] flex items-center justify-center text-center p-4 pt-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2070&auto=format&fit=crop"
+          src="/hero-bg.png"
           alt="Golf lessons in Kansas City with Coach Kobe at Loading Golf — Serving Kingdom KC partner"
           fill
-          className="object-cover"
+          className="object-cover scale-110"
           priority
         />
         <div className="absolute inset-0 bg-black/75 z-10" />

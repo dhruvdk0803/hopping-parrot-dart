@@ -8,10 +8,10 @@ export function PodcastHero() {
     <section className="relative text-white min-h-[80vh] flex items-center justify-center text-center p-4 pt-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2070&auto=format&fit=crop"
+          src="/hero-bg.png"
           alt="Kingdom Conversations podcast by Serving Kingdom KC — faith, leadership, and community giving"
           fill
-          className="object-cover"
+          className="object-cover scale-110"
           priority
         />
         <div className="absolute inset-0 bg-black/80 z-10" />

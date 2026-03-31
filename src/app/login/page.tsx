@@ -9,10 +9,10 @@ export default function LoginPage() {
       {/* Left Side - Image & Branding (Hidden on Mobile) */}
       <div className="hidden md:flex md:w-1/2 relative bg-black items-center justify-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2070&auto=format&fit=crop"
+          src="/hero-bg.png"
           alt="Golf Course Community"
           fill
-          className="object-cover opacity-60"
+          className="object-cover opacity-60 scale-110"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/80" />
