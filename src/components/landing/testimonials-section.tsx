@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    quote: "Working with Serving Kingdom has been a transformative experience for our organization. Their dedication and professionalism are unmatched. The funds raised from their golf tournament allowed us to expand our youth programs significantly. We are incredibly grateful for their partnership.",
-    name: "John Smith",
-    org: "Director, Young Life Blue Springs",
+    quote: "Working with Serving Kingdom KC infused new excitement into our team and had a real impact on our fundraising efforts. They brought energy, strategy and heart to every step of the process. Their support was exactly what we needed and we’re truly grateful for their partnership.",
+    name: "Haiti Joy Hope",
+    org: "",
   },
   {
-    quote: "Partnering with Serving Kingdom KC has been one of the best decisions for our community outreach. Not only did our team have an incredible time at the tournament, but the visibility and networking opportunities were outstanding. It is a privilege to align our brand with such a meaningful cause.",
-    name: "Jane Doe",
-    org: "CEO, LevelUp Kids",
+    quote: "We see the value and additional connections that Serving Kingdom KC brings to our nonprofit.",
+    name: "Young Life Blue Springs",
+    org: "",
   },
 ];
 
@@ -25,7 +25,7 @@ const QuoteBlock = ({ testimonial, delay }: { testimonial: (typeof testimonials)
   >
     <p className="text-base sm:text-lg md:text-xl leading-relaxed font-medium">"{testimonial.quote}"</p>
     <p className="mt-6 md:mt-8 font-bold uppercase tracking-widest text-sm">{testimonial.name}</p>
-    <p className="text-muted-foreground text-sm mt-1">{testimonial.org}</p>
+    {testimonial.org && <p className="text-muted-foreground text-sm mt-1">{testimonial.org}</p>}
   </motion.div>
 );
 
