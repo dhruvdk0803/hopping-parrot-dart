@@ -30,11 +30,16 @@ export function LogoStrip() {
         <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
         
-        <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] items-center">
+        {/* 
+          Using gap instead of margins ensures perfectly even spacing. 
+          Adding pr (padding-right) equal to the gap ensures the total width 
+          is perfectly divisible for the -50% translation loop.
+        */}
+        <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] items-center gap-16 md:gap-24 pr-16 md:pr-24">
           {duplicatedLogos.map((logo, index) => (
             <div 
               key={`${logo.alt}-${index}`} 
-              className="mx-8 md:mx-12 relative h-16 md:h-20 w-32 md:w-40 flex-shrink-0"
+              className="relative h-16 md:h-20 w-32 md:w-40 flex-shrink-0"
             >
               <Image
                 src={logo.src}
