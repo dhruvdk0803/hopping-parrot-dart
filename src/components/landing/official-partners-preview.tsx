@@ -15,30 +15,18 @@ export function OfficialPartnersPreview() {
   return (
     <section className="py-24 sm:py-32 bg-white text-black">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">Official Partners</h2>
-            <div className="w-12 h-1 bg-primary mt-6"></div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-none border-black text-black hover:bg-primary hover:border-primary hover:text-white uppercase tracking-widest font-bold transition-colors duration-300">
-              <Link href="/official-partners">Meet the Official Partners</Link>
-            </Button>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase">Official Partners</h2>
+          <div className="w-12 h-1 bg-primary mx-auto mt-6"></div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-16">
           {partners.map((partner, index) => (
             <motion.div
               key={partner}
@@ -54,6 +42,18 @@ export function OfficialPartnersPreview() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-none border-black text-black hover:bg-primary hover:border-primary hover:text-white uppercase tracking-widest font-bold transition-colors duration-300">
+            <Link href="/official-partners">Meet the Official Partners</Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
