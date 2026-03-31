@@ -24,7 +24,7 @@ const events = [
     date: "May 8th, 2026",
     location: "Paradise Pointe Golf Complex",
     image: "/valor-ranch-logo.jpeg",
-    link: "/tournaments",
+    link: "https://valorranch.org",
   },
 ];
 

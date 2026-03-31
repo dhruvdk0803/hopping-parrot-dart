@@ -34,7 +34,8 @@ const events = [
     nonprofit: "Valor Ranch",
     eventName: "Golf Tournament",
     location: "Paradise Pointe Golf Complex",
-    hasLink: false
+    hasLink: true,
+    link: "https://valorranch.org"
   },
   {
     id: 4,
@@ -53,7 +54,8 @@ const events = [
     nonprofit: "Northland Workforce Development Center",
     eventName: "Golf Tournament",
     location: "Staley Farms Golf Club",
-    hasLink: false
+    hasLink: true,
+    link: "https://www.nwdckc.org/golf"
   },
   {
     id: 6,
