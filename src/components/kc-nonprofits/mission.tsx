@@ -27,7 +27,7 @@ export function KcNonprofitsMission() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-            className="relative h-[400px] lg:h-[500px] w-full"
+            className="relative h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-xl"
           >
             <Image
               src="/DSC_8553.jpg"
