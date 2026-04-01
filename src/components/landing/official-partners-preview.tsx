@@ -51,19 +51,19 @@ export function OfficialPartnersPreview() {
               className="relative aspect-square border border-black/10 flex items-center justify-center p-6 text-center hover:border-primary transition-colors duration-300 group overflow-hidden bg-white"
             >
               {/* Background Logo */}
-              <div className="absolute inset-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 p-6 opacity-30 group-hover:opacity-70 transition-opacity duration-500 flex items-center justify-center pointer-events-none">
                 <div className="relative w-full h-full">
                   <Image
                     src={partner.logo}
                     alt={`${partner.name} logo`}
                     fill
-                    className={`object-contain grayscale ${partner.invert ? 'invert' : ''}`}
+                    className={`object-contain transition-all duration-500 grayscale group-hover:grayscale-0 ${partner.invert ? 'invert' : ''}`}
                   />
                 </div>
               </div>
 
               {/* Text Content */}
-              <h3 className="relative z-10 font-bold uppercase tracking-widest text-sm md:text-base group-hover:text-primary transition-colors drop-shadow-sm bg-white/80 px-3 py-1">
+              <h3 className="relative z-10 font-bold uppercase tracking-widest text-sm md:text-base group-hover:text-primary transition-colors drop-shadow-sm bg-white/90 backdrop-blur-sm px-4 py-2">
                 {partner.name}
               </h3>
             </motion.div>
