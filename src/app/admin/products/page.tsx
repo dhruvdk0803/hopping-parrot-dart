@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Plus, Edit, Trash2, Check, X, Zap } from 'lucide-react';
+import { Plus, Edit, Trash2, Check, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function AdminProducts() {
@@ -20,6 +20,7 @@ export default function AdminProducts() {
     description: '',
     colors: '',
     sizes: '',
+    back_options: '',
     additional_images: ''
   };
   
@@ -43,46 +44,6 @@ export default function AdminProducts() {
     fetchData();
   }, []);
 
-  const autoAddProduct = async () => {
-    let categoryId = categories[0]?.id;
-    
-    // If no category exists, create one automatically
-    if (!categoryId) {
-      const { data: newCat, error: catError } = await supabase
-        .from('Catagories')
-        .insert([{ name: 'Merchandise', slug: 'merchandise' }])
-        .select()
-        .single();
-        
-      if (catError) {
-        toast.error("Failed to create category");
-        return;
-      }
-      categoryId = newCat.id;
-    }
-
-    const productData = {
-      name: "Team 365 Men's Zone Performance Quarter-Zip",
-      price: 42.00,
-      category_id: categoryId,
-      type: 'product',
-      image_url: '/zipgray.png',
-      description: "3.5 oz. / 130 gsm; 100% polyester interlock with moisture-wicking and UV protection performance; Center front coil zipper with semi-autolock slider and rubber pull; Athletic fit; Cationic dyes to ensure superior brightness and excellent color fastness; Transitioning from heat-seal label to tear away label.",
-      status: 'published',
-      colors: ['Sport Graphite', 'Black', 'Sport Royal'],
-      sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-      additional_images: ['/zipblue.png', '/zipblack.png']
-    };
-
-    const { error } = await supabase.from('products').insert([productData]);
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success("Quarter-Zip auto-added successfully!");
-      fetchData();
-    }
-  };
-
   const handleSave = async (status: 'draft' | 'published') => {
     if (!formData.name || !formData.price || !formData.category_id) {
       toast.error("Please fill in all required fields");
@@ -99,19 +60,20 @@ export default function AdminProducts() {
       status,
       colors: formData.colors ? formData.colors.split(',').map(s => s.trim()).filter(Boolean) : null,
       sizes: formData.sizes ? formData.sizes.split(',').map(s => s.trim()).filter(Boolean) : null,
+      back_options: formData.back_options ? formData.back_options.split(',').map(s => s.trim()).filter(Boolean) : null,
       additional_images: formData.additional_images ? formData.additional_images.split(',').map(s => s.trim()).filter(Boolean) : null,
     };
 
     if (editingId) {
       const { error } = await supabase.from('products').update(productData).eq('id', editingId);
       if (error) {
-        if (error.message.includes('column')) toast.error("Database schema error: Please run the SQL command to add colors/sizes columns.");
+        if (error.message.includes('column')) toast.error("Database schema error: Please run the SQL command to add the missing columns.");
         else toast.error(error.message);
       } else toast.success("Product updated");
     } else {
       const { error } = await supabase.from('products').insert([productData]);
       if (error) {
-        if (error.message.includes('column')) toast.error("Database schema error: Please run the SQL command to add colors/sizes columns.");
+        if (error.message.includes('column')) toast.error("Database schema error: Please run the SQL command to add the missing columns.");
         else toast.error(error.message);
       } else toast.success("Product added");
     }
@@ -132,6 +94,7 @@ export default function AdminProducts() {
       description: product.description || '',
       colors: product.colors ? product.colors.join(', ') : '',
       sizes: product.sizes ? product.sizes.join(', ') : '',
+      back_options: product.back_options ? product.back_options.join(', ') : '',
       additional_images: product.additional_images ? product.additional_images.join(', ') : '',
     });
     setEditingId(product.id);
@@ -167,14 +130,9 @@ export default function AdminProducts() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold tracking-tight uppercase">Products & Memberships</h1>
         {!isAdding && (
-          <div className="flex gap-4">
-            <Button onClick={autoAddProduct} variant="outline" className="rounded-none border-primary text-primary hover:bg-primary hover:text-white uppercase tracking-widest font-bold">
-              <Zap size={18} className="mr-2" /> Auto-Add Quarter-Zip
-            </Button>
-            <Button onClick={() => setIsAdding(true)} className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold">
-              <Plus size={18} className="mr-2" /> Add Item
-            </Button>
-          </div>
+          <Button onClick={() => setIsAdding(true)} className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold">
+            <Plus size={18} className="mr-2" /> Add Item
+          </Button>
         )}
       </div>
 
@@ -210,19 +168,23 @@ export default function AdminProducts() {
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Main Image URL</label>
-              <input type="text" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="/zipgray.png" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+              <input type="text" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="/crewneckred.png" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Additional Images (comma separated URLs)</label>
-              <input type="text" value={formData.additional_images} onChange={e => setFormData({...formData, additional_images: e.target.value})} placeholder="/zipblue.png, /zipblack.png" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+              <input type="text" value={formData.additional_images} onChange={e => setFormData({...formData, additional_images: e.target.value})} placeholder="/crewneckgray.png, /crewneckblack.png" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Colors (comma separated)</label>
-              <input type="text" value={formData.colors} onChange={e => setFormData({...formData, colors: e.target.value})} placeholder="Sport Graphite, Black, Sport Royal" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+              <input type="text" value={formData.colors} onChange={e => setFormData({...formData, colors: e.target.value})} placeholder="Black, Gray, True Red" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Sizes (comma separated)</label>
               <input type="text" value={formData.sizes} onChange={e => setFormData({...formData, sizes: e.target.value})} placeholder="S, M, L, XL, XXL" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+            </div>
+            <div className="flex flex-col md:col-span-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Back Options (comma separated)</label>
+              <input type="text" value={formData.back_options} onChange={e => setFormData({...formData, back_options: e.target.value})} placeholder="words, nowords" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Description</label>

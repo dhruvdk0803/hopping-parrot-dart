@@ -19,6 +19,7 @@ export function StoreContent() {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const [selectedBackOption, setSelectedBackOption] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const [activeImage, setActiveImage] = useState<string>("");
 
@@ -56,6 +57,7 @@ export function StoreContent() {
     setSelectedProduct(product);
     setSelectedColor(product.colors?.[0] || "");
     setSelectedSize(product.sizes?.[0] || "");
+    setSelectedBackOption(product.back_options?.[0] || "");
     setQuantity(1);
     setActiveImage(product.image_url);
   };
@@ -78,12 +80,16 @@ export function StoreContent() {
     if (selectedProduct.sizes?.length && !selectedSize) {
       toast.error("Please select a size"); return;
     }
+    if (selectedProduct.back_options?.length && !selectedBackOption) {
+      toast.error("Please select a back option"); return;
+    }
     
     const cartItem = {
       ...selectedProduct,
       cart_id: Math.random().toString(36).substr(2, 9),
       selectedColor,
       selectedSize,
+      selectedBackOption,
       quantity
     };
     
@@ -133,9 +139,9 @@ export function StoreContent() {
               <div key={item.cart_id || i} className="flex justify-between text-sm border-b border-white/10 pb-3">
                 <div>
                   <p className="font-bold">{item.name}</p>
-                  {(item.selectedColor || item.selectedSize) && (
+                  {(item.selectedColor || item.selectedSize || item.selectedBackOption) && (
                     <p className="text-gray-400 text-xs mt-1">
-                      {item.selectedColor} {item.selectedColor && item.selectedSize && '|'} {item.selectedSize}
+                      {[item.selectedColor, item.selectedSize, item.selectedBackOption].filter(Boolean).join(' | ')}
                     </p>
                   )}
                   <p className="text-gray-400 text-xs mt-1">Qty: {item.quantity || 1}</p>
@@ -226,6 +232,24 @@ export function StoreContent() {
                           className={`min-w-[3rem] h-12 px-3 flex items-center justify-center text-sm font-bold uppercase tracking-wider border transition-colors ${selectedSize === size ? 'border-primary bg-primary text-white' : 'border-black/20 hover:border-black'}`}
                         >
                           {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Back Options */}
+                {selectedProduct.back_options?.length > 0 && (
+                  <div className="mb-6">
+                    <p className="text-sm font-bold uppercase tracking-widest mb-3">Back of Sweatshirt: <span className="text-primary">{selectedBackOption}</span></p>
+                    <div className="flex flex-wrap gap-3">
+                      {selectedProduct.back_options.map((opt: string) => (
+                        <button 
+                          key={opt}
+                          onClick={() => setSelectedBackOption(opt)}
+                          className={`px-4 py-2 text-sm font-bold uppercase tracking-wider border transition-colors ${selectedBackOption === opt ? 'border-primary bg-primary text-white' : 'border-black/20 hover:border-black'}`}
+                        >
+                          {opt}
                         </button>
                       ))}
                     </div>

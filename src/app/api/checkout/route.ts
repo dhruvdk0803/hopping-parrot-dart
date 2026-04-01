@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       price_data: {
         currency: 'usd',
         product_data: {
-          name: `${item.name} ${item.selectedColor ? `(${item.selectedColor})` : ''} ${item.selectedSize ? `[${item.selectedSize}]` : ''}`.trim(),
+          name: `${item.name} ${item.selectedColor ? `(${item.selectedColor})` : ''} ${item.selectedSize ? `[${item.selectedSize}]` : ''} ${item.selectedBackOption ? `{${item.selectedBackOption}}` : ''}`.trim(),
           images: item.image_url ? [item.image_url] : [],
         },
         unit_amount: Math.round(Number(item.price) * 100), // Convert to cents
