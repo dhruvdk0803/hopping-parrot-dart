@@ -48,10 +48,10 @@ export function OfficialPartnersPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-              className="relative aspect-square border border-black/10 flex items-center justify-center p-6 text-center hover:border-primary transition-colors duration-300 group overflow-hidden bg-white"
+              className="relative aspect-square border border-black/10 hover:border-primary transition-all duration-300 group overflow-hidden bg-white shadow-sm hover:shadow-md"
             >
               {/* Background Logo */}
-              <div className="absolute inset-0 p-6 opacity-30 group-hover:opacity-70 transition-opacity duration-500 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 p-4 pb-12 md:p-8 md:pb-16 opacity-40 group-hover:opacity-90 transition-all duration-500 flex items-center justify-center pointer-events-none group-hover:scale-105">
                 <div className="relative w-full h-full">
                   <Image
                     src={partner.logo}
@@ -62,10 +62,12 @@ export function OfficialPartnersPreview() {
                 </div>
               </div>
 
-              {/* Text Content */}
-              <h3 className="relative z-10 font-bold uppercase tracking-widest text-sm md:text-base group-hover:text-primary transition-colors drop-shadow-sm bg-white/90 backdrop-blur-sm px-4 py-2">
-                {partner.name}
-              </h3>
+              {/* Text Content - Bottom Bar */}
+              <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-black/5 p-3 md:p-4 flex items-center justify-center transition-colors duration-300">
+                <h3 className="font-bold uppercase tracking-widest text-[10px] sm:text-xs md:text-sm group-hover:text-primary transition-colors text-center line-clamp-1">
+                  {partner.name}
+                </h3>
+              </div>
             </motion.div>
           ))}
         </div>
