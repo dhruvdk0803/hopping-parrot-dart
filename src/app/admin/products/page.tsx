@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Plus, Edit, Trash2, Check, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Check, X, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function AdminProducts() {
@@ -42,6 +42,46 @@ export default function AdminProducts() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const autoAddProduct = async () => {
+    let categoryId = categories[0]?.id;
+    
+    // If no category exists, create one automatically
+    if (!categoryId) {
+      const { data: newCat, error: catError } = await supabase
+        .from('Catagories')
+        .insert([{ name: 'Merchandise', slug: 'merchandise' }])
+        .select()
+        .single();
+        
+      if (catError) {
+        toast.error("Failed to create category");
+        return;
+      }
+      categoryId = newCat.id;
+    }
+
+    const productData = {
+      name: "Team 365 Men's Zone Performance Quarter-Zip",
+      price: 42.00,
+      category_id: categoryId,
+      type: 'product',
+      image_url: '/zipgray.png',
+      description: "3.5 oz. / 130 gsm; 100% polyester interlock with moisture-wicking and UV protection performance; Center front coil zipper with semi-autolock slider and rubber pull; Athletic fit; Cationic dyes to ensure superior brightness and excellent color fastness; Transitioning from heat-seal label to tear away label.",
+      status: 'published',
+      colors: ['Sport Graphite', 'Black', 'Sport Royal'],
+      sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+      additional_images: ['/zipblue.png', '/zipblack.png']
+    };
+
+    const { error } = await supabase.from('products').insert([productData]);
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Quarter-Zip auto-added successfully!");
+      fetchData();
+    }
+  };
 
   const handleSave = async (status: 'draft' | 'published') => {
     if (!formData.name || !formData.price || !formData.category_id) {
@@ -127,9 +167,14 @@ export default function AdminProducts() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold tracking-tight uppercase">Products & Memberships</h1>
         {!isAdding && (
-          <Button onClick={() => setIsAdding(true)} className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold">
-            <Plus size={18} className="mr-2" /> Add Item
-          </Button>
+          <div className="flex gap-4">
+            <Button onClick={autoAddProduct} variant="outline" className="rounded-none border-primary text-primary hover:bg-primary hover:text-white uppercase tracking-widest font-bold">
+              <Zap size={18} className="mr-2" /> Auto-Add Quarter-Zip
+            </Button>
+            <Button onClick={() => setIsAdding(true)} className="rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold">
+              <Plus size={18} className="mr-2" /> Add Item
+            </Button>
+          </div>
         )}
       </div>
 
