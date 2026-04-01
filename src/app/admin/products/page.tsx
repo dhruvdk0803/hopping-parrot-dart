@@ -18,6 +18,9 @@ export default function AdminProducts() {
     type: 'product',
     image_url: '',
     description: '',
+    colors: '',
+    sizes: '',
+    additional_images: ''
   };
   
   const [formData, setFormData] = useState(initialForm);
@@ -53,17 +56,24 @@ export default function AdminProducts() {
       type: formData.type,
       image_url: formData.image_url,
       description: formData.description,
-      status
+      status,
+      colors: formData.colors ? formData.colors.split(',').map(s => s.trim()).filter(Boolean) : null,
+      sizes: formData.sizes ? formData.sizes.split(',').map(s => s.trim()).filter(Boolean) : null,
+      additional_images: formData.additional_images ? formData.additional_images.split(',').map(s => s.trim()).filter(Boolean) : null,
     };
 
     if (editingId) {
       const { error } = await supabase.from('products').update(productData).eq('id', editingId);
-      if (error) toast.error(error.message);
-      else toast.success("Product updated");
+      if (error) {
+        if (error.message.includes('column')) toast.error("Database schema error: Please run the SQL command to add colors/sizes columns.");
+        else toast.error(error.message);
+      } else toast.success("Product updated");
     } else {
       const { error } = await supabase.from('products').insert([productData]);
-      if (error) toast.error(error.message);
-      else toast.success("Product added");
+      if (error) {
+        if (error.message.includes('column')) toast.error("Database schema error: Please run the SQL command to add colors/sizes columns.");
+        else toast.error(error.message);
+      } else toast.success("Product added");
     }
 
     setIsAdding(false);
@@ -80,6 +90,9 @@ export default function AdminProducts() {
       type: product.type,
       image_url: product.image_url || '',
       description: product.description || '',
+      colors: product.colors ? product.colors.join(', ') : '',
+      sizes: product.sizes ? product.sizes.join(', ') : '',
+      additional_images: product.additional_images ? product.additional_images.join(', ') : '',
     });
     setEditingId(product.id);
     setIsAdding(true);
@@ -151,8 +164,20 @@ export default function AdminProducts() {
               </select>
             </div>
             <div className="flex flex-col md:col-span-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Image URL (Optional for Memberships)</label>
-              <input type="text" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="https://..." className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Main Image URL</label>
+              <input type="text" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="/zipgray.png" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+            </div>
+            <div className="flex flex-col md:col-span-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Additional Images (comma separated URLs)</label>
+              <input type="text" value={formData.additional_images} onChange={e => setFormData({...formData, additional_images: e.target.value})} placeholder="/zipblue.png, /zipblack.png" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+            </div>
+            <div className="flex flex-col md:col-span-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Colors (comma separated)</label>
+              <input type="text" value={formData.colors} onChange={e => setFormData({...formData, colors: e.target.value})} placeholder="Sport Graphite, Black, Sport Royal" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
+            </div>
+            <div className="flex flex-col md:col-span-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Sizes (comma separated)</label>
+              <input type="text" value={formData.sizes} onChange={e => setFormData({...formData, sizes: e.target.value})} placeholder="S, M, L, XL, XXL" className="w-full border-b border-black/20 bg-transparent py-2 px-0 text-base focus:outline-none focus:border-primary transition-colors rounded-none" />
             </div>
             <div className="flex flex-col md:col-span-2">
               <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Description</label>

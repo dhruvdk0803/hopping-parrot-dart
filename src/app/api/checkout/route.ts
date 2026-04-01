@@ -15,8 +15,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
     }
 
-    // Calculate total
-    const total = items.reduce((sum: number, item: any) => sum + Number(item.price), 0);
+    // Calculate total including quantity
+    const total = items.reduce((sum: number, item: any) => sum + (Number(item.price) * (item.quantity || 1)), 0);
 
     // Create a pending order in Supabase
     const { data: order, error: orderError } = await supabase
@@ -47,12 +47,12 @@ export async function POST(req: Request) {
       price_data: {
         currency: 'usd',
         product_data: {
-          name: item.name,
+          name: `${item.name} ${item.selectedColor ? `(${item.selectedColor})` : ''} ${item.selectedSize ? `[${item.selectedSize}]` : ''}`.trim(),
           images: item.image_url ? [item.image_url] : [],
         },
         unit_amount: Math.round(Number(item.price) * 100), // Convert to cents
       },
-      quantity: 1,
+      quantity: item.quantity || 1,
     }));
 
     const session = await stripe.checkout.sessions.create({
