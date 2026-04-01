@@ -30,7 +30,7 @@ export function KcNonprofitsMission() {
             className="relative h-[400px] lg:h-[500px] w-full"
           >
             <Image
-              src="https://images.unsplash.com/photo-1593113565694-c6f8716c0296?q=80&w=2070&auto=format&fit=crop"
+              src="/DSC_8553.jpg"
               alt="Community giving KC"
               fill
               className="object-cover"
