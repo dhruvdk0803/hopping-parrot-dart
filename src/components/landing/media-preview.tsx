@@ -23,7 +23,7 @@ export function MediaPreview() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold transition-colors duration-300">
-              <a href="https://www.youtube.com/@JeffMcCubbins" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.youtube.com/@ServingKingdomKC" target="_blank" rel="noopener noreferrer">
                 Watch the Podcast
               </a>
             </Button>
