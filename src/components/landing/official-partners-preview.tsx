@@ -3,12 +3,26 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const partners = [
-  "Loading Golf",
-  "Bridge Integrative Medicine",
-  "Smithville Golf",
-  "Golf Ranch"
+  {
+    name: "Loading Golf",
+    logo: "/loading-golf-logo.png",
+    invert: true // White logo needs to be inverted on light background
+  },
+  {
+    name: "Bridge Integrative Medicine",
+    logo: "/bridge-integrative-logo.jpg"
+  },
+  {
+    name: "Smithville Golf",
+    logo: "/smithville-golf-logo.png"
+  },
+  {
+    name: "Golf Ranch",
+    logo: "/golf-ranch-logo.jpg"
+  }
 ];
 
 export function OfficialPartnersPreview() {
@@ -29,15 +43,28 @@ export function OfficialPartnersPreview() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-16">
           {partners.map((partner, index) => (
             <motion.div
-              key={partner}
+              key={partner.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-              className="aspect-square border border-black/10 flex items-center justify-center p-6 text-center hover:border-primary hover:bg-gray-50 transition-colors duration-300 group"
+              className="relative aspect-square border border-black/10 flex items-center justify-center p-6 text-center hover:border-primary transition-colors duration-300 group overflow-hidden bg-white"
             >
-              <h3 className="font-bold uppercase tracking-widest text-sm md:text-base group-hover:text-primary transition-colors">
-                {partner}
+              {/* Background Logo */}
+              <div className="absolute inset-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    fill
+                    className={`object-contain grayscale ${partner.invert ? 'invert' : ''}`}
+                  />
+                </div>
+              </div>
+
+              {/* Text Content */}
+              <h3 className="relative z-10 font-bold uppercase tracking-widest text-sm md:text-base group-hover:text-primary transition-colors drop-shadow-sm bg-white/80 px-3 py-1">
+                {partner.name}
               </h3>
             </motion.div>
           ))}
