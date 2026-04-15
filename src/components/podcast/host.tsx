@@ -18,7 +18,7 @@ export function PodcastHost() {
             <div className="relative w-full aspect-[4/5] overflow-hidden border border-black/10 shadow-lg">
               <Image 
                 src="/jeff-mccubbins.jpeg" 
-                alt="Jeff McCubbins, host of the Kingdom Conversations podcast and founder of Serving Kingdom KC" 
+                alt="Jeff McCubbins, host of the Serving Kingdom KC podcast and founder of Serving Kingdom KC" 
                 fill 
                 className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
@@ -41,7 +41,7 @@ export function PodcastHost() {
             
             <div className="space-y-6 text-lg md:text-xl leading-relaxed text-gray-600">
               <p>
-                Jeff McCubbins is the founder of Serving Kingdom KC and the voice behind Kingdom Conversations. With a deep-rooted passion for golf and an even deeper commitment to his faith, Jeff created Serving Kingdom KC to bridge the gap between corporate generosity and nonprofit needs in Kansas City.
+                Jeff McCubbins is the founder of Serving Kingdom KC and the voice behind the Serving Kingdom KC podcast. With a deep-rooted passion for golf and an even deeper commitment to his faith, Jeff created Serving Kingdom KC to bridge the gap between corporate generosity and nonprofit needs in Kansas City.
               </p>
               <p>
                 Through the podcast, Jeff aims to amplify the voices of those doing the hard work in the trenches of the nonprofit sector, providing them with a platform to share their vision and connect with a broader audience of supporters. His conversations are honest, grounded, and always centered on the belief that we are called to serve something greater than ourselves.

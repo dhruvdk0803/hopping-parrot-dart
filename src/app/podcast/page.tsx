@@ -9,8 +9,8 @@ import { PodcastJoin } from "@/components/podcast/join";
 import { PodcastFinalCta } from "@/components/podcast/final-cta";
 
 export const metadata: Metadata = {
-  title: "Kingdom Conversations Podcast | Faith-Based Nonprofit KC",
-  description: "Tune into the Kingdom Conversations podcast by Serving Kingdom KC. Join Jeff McCubbins for discussions on faith, leadership, and community giving in Kansas City.",
+  title: "Serving Kingdom KC Podcast | Faith-Based Nonprofit KC",
+  description: "Tune into the Serving Kingdom KC podcast. Join Jeff McCubbins for discussions on faith, leadership, and community giving in Kansas City.",
 };
 
 export default function PodcastPage() {

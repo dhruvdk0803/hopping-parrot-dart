@@ -32,7 +32,7 @@ export function PodcastJoin() {
           </h2>
           <div className="w-12 h-1 bg-primary mx-auto mb-8"></div>
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
-            The Kingdom Conversations podcast is more than just a show; it is a community. We invite you to engage with us, share your thoughts, and become part of the movement to support local nonprofits in KC.
+            The Serving Kingdom KC podcast is more than just a show; it is a community. We invite you to engage with us, share your thoughts, and become part of the movement to support local nonprofits in KC.
           </p>
         </motion.div>
 

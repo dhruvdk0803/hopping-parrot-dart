@@ -36,7 +36,7 @@ export function PodcastTopics() {
           </h2>
           <div className="w-12 h-1 bg-primary mb-8"></div>
           <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl">
-            The Kingdom Conversations podcast goes beyond the golf course to discuss the core values that drive our mission. Every episode is designed to inspire, educate, and equip our listeners to serve their communities better.
+            The Serving Kingdom KC Conversations podcast goes beyond the golf course to discuss the core values that drive our mission. Every episode is designed to inspire, educate, and equip our listeners to serve their communities better.
           </p>
           <p className="text-lg text-gray-600 mt-4 font-medium">
             Key topics covered on the show:

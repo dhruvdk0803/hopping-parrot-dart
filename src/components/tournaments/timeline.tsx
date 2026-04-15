@@ -6,17 +6,6 @@ import Link from "next/link";
 
 const events = [
   {
-    id: 1,
-    date: "March 28th, 2026",
-    season: "Spring",
-    nonprofit: "Varsity Skateboarding Organization",
-    eventName: "Golf Tournament",
-    location: "Golf Ranch Shoal Creek",
-    time: "Shotgun Start 12:00pm",
-    hasLink: true,
-    link: "https://varsity-skateboarding-golf.perfectgolfevent.com/"
-  },
-  {
     id: 2,
     date: "April 27th, 2026",
     season: "Spring",
@@ -34,6 +23,7 @@ const events = [
     nonprofit: "Valor Ranch",
     eventName: "Golf Tournament",
     location: "Paradise Pointe Golf Complex",
+    time: "Shotgun Start 9:00am",
     hasLink: true,
     link: "https://valorranch.org"
   },
@@ -44,6 +34,7 @@ const events = [
     nonprofit: "Team Central Wrestling Club",
     eventName: "5th Annual Dave and Kristi Gleason Memorial Scramble Golf Tournament",
     location: "Staley Farms Golf Club",
+    time: "Shotgun Start 10:00am",
     hasLink: true,
     link: "#"
   },
@@ -54,6 +45,7 @@ const events = [
     nonprofit: "Northland Workforce Development Center",
     eventName: "Golf Tournament",
     location: "Staley Farms Golf Club",
+    time: "Shotgun Start 8:00am",
     hasLink: true,
     link: "https://www.nwdckc.org/golf"
   },
@@ -68,21 +60,13 @@ const events = [
     hasLink: false
   },
   {
-    id: 7,
-    date: "August 2026",
-    season: "Summer",
-    nonprofit: "Liberty Women’s Clinic",
-    eventName: "Golf Tournament",
-    location: "Excelsior Springs Golf Course",
-    hasLink: false
-  },
-  {
     id: 8,
     date: "September 11th, 2026",
     season: "Fall",
     nonprofit: "People Of All Communities (P.O.A.C.)",
     eventName: "Golf Tournament",
     location: "Paradise Pointe Golf Complex",
+    time: "Shotgun Start 9:00am",
     hasLink: false
   },
   {
@@ -92,15 +76,17 @@ const events = [
     nonprofit: "LevelUp Kids, INC.",
     eventName: "Golf Tournament",
     location: "Shoal Creek Golf Course",
+    time: "Shotgun Start 9:00am",
     hasLink: false
   },
   {
-    id: 10,
-    date: "October 5th, 2026",
+    id: 13,
+    date: "October 3rd, 2026",
     season: "Fall",
-    nonprofit: "Parkville Women’s Clinic",
+    nonprofit: "Varsity Skateboarding Organization",
     eventName: "Golf Tournament",
-    location: "Staley Farms Golf Club",
+    location: "Golf Ranch Shoal Creek",
+    time: "Shotgun Start 9:00am",
     hasLink: false
   },
   {
