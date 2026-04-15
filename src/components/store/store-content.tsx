@@ -34,6 +34,24 @@ export function StoreContent() {
         const subs = prodRes.data.filter(p => p.type === 'subscription');
         const swag = prodRes.data.filter(p => p.type !== 'subscription');
         
+        // Sort memberships: Sponsors -> Sponsor + Team -> Team -> Custom
+        const getRank = (name: string) => {
+          const n = name.toLowerCase();
+          if (n.includes('custom')) return 4;
+          if (n.includes('sponsor + team') || n.includes('sponsor and team')) return 2;
+          if (n.includes('sponsor')) return 1;
+          if (n.includes('team')) return 3;
+          return 5;
+        };
+
+        subs.sort((a, b) => {
+          const rankA = getRank(a.name);
+          const rankB = getRank(b.name);
+          if (rankA !== rankB) return rankA - rankB;
+          // If same rank, sort by price descending (e.g., 6 package before 3 package)
+          return Number(b.price) - Number(a.price);
+        });
+
         setMemberships(subs);
         setSwagProducts(swag);
 
