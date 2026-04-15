@@ -41,7 +41,7 @@ export function LogoStrip() {
                 src={logo.src}
                 alt={logo.alt}
                 fill
-                className={`object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer ${logo.invert ? 'invert' : ''}`}
+                className={`object-contain transition-all duration-300 cursor-pointer hover:scale-105 ${logo.invert ? 'invert' : ''}`}
               />
             </div>
           ))}
@@ -58,7 +58,7 @@ export function LogoStrip() {
                 src={logo.src}
                 alt={logo.alt}
                 fill
-                className={`object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer ${logo.invert ? 'invert' : ''}`}
+                className={`object-contain transition-all duration-300 cursor-pointer hover:scale-105 ${logo.invert ? 'invert' : ''}`}
               />
             </div>
           ))}

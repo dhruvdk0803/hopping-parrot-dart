@@ -29,9 +29,9 @@ export function Footer() {
             <div>
               <h4 className="font-semibold uppercase tracking-wider text-sm">Follow</h4>
               <ul className="mt-4 space-y-2">
-                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Instagram</Link></li>
-                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">Facebook</Link></li>
-                <li><Link href="#" className="text-muted-foreground hover:text-white transition-colors">LinkedIn</Link></li>
+                <li><a href="https://www.instagram.com/servingkingdomkc/?hl=en" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-white transition-colors">Instagram</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61574426826351" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-white transition-colors">Facebook</a></li>
+                <li><a href="https://www.youtube.com/@ServingKingdomKC" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-white transition-colors">YouTube</a></li>
               </ul>
             </div>
           </div>

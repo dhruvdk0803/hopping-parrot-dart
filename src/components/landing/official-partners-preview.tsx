@@ -51,13 +51,13 @@ export function OfficialPartnersPreview() {
               className="relative aspect-square border border-black/10 hover:border-primary transition-all duration-300 group overflow-hidden bg-white shadow-sm hover:shadow-md"
             >
               {/* Background Logo */}
-              <div className="absolute inset-0 p-4 pb-12 md:p-8 md:pb-16 opacity-40 group-hover:opacity-90 transition-all duration-500 flex items-center justify-center pointer-events-none group-hover:scale-105">
+              <div className="absolute inset-0 p-4 pb-12 md:p-8 md:pb-16 transition-all duration-500 flex items-center justify-center pointer-events-none group-hover:scale-105">
                 <div className="relative w-full h-full">
                   <Image
                     src={partner.logo}
                     alt={`${partner.name} logo`}
                     fill
-                    className={`object-contain transition-all duration-500 grayscale group-hover:grayscale-0 ${partner.invert ? 'invert' : ''}`}
+                    className={`object-contain transition-all duration-500 ${partner.invert ? 'invert' : ''}`}
                   />
                 </div>
               </div>
