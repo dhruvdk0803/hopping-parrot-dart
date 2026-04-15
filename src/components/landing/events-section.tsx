@@ -37,7 +37,6 @@ const EventCard = ({ event, delay }: { event: (typeof events)[0], delay: number 
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
   >
     <div className="overflow-hidden relative h-64 bg-gray-50">
-      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
       <img src={event.image} alt={event.title} className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105" />
     </div>
     <div className="p-8 flex flex-col flex-grow relative">
