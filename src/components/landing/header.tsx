@@ -196,25 +196,25 @@ export function Header({ variant = "transparent" }: HeaderProps) {
             <div className="h-20 flex-shrink-0 border-b border-black/10" />
 
             {/* Mobile Scrollable Content */}
-            <div className="flex-1 overflow-y-auto py-8 px-6">
-              <nav className="flex flex-col gap-6">
+            <div className="flex-1 overflow-y-auto py-4 px-6">
+              <nav className="flex flex-col gap-2">
                 {navItems.map((item, index) => {
                   // Add dividers before specific sections
                   const needsDivider = item.label === "About" || item.label === "Contact";
                   
                   return (
                     <div key={item.label} className="flex flex-col">
-                      {needsDivider && <div className="w-full h-px bg-black/10 my-2" />}
+                      {needsDivider && <div className="w-full h-px bg-black/10 my-1" />}
                       
                       {item.items ? (
                         <div className="flex flex-col">
                           <button 
                             onClick={() => toggleAccordion(item.label)}
-                            className="flex items-center justify-between py-2 text-2xl font-bold tracking-tighter uppercase text-left"
+                            className="flex items-center justify-between py-1.5 text-lg font-bold tracking-tighter uppercase text-left"
                           >
                             {item.label}
                             <ChevronDown 
-                              className={`w-6 h-6 transition-transform duration-300 ${openAccordions.includes(item.label) ? 'rotate-180' : ''}`} 
+                              className={`w-5 h-5 transition-transform duration-300 ${openAccordions.includes(item.label) ? 'rotate-180' : ''}`} 
                             />
                           </button>
                           <AnimatePresence>
@@ -226,7 +226,7 @@ export function Header({ variant = "transparent" }: HeaderProps) {
                                 transition={{ duration: 0.3 }}
                                 className="overflow-hidden"
                               >
-                                <div className="flex flex-col gap-4 py-4 pl-4 border-l-2 border-primary/30 ml-2 mt-2">
+                                <div className="flex flex-col gap-2 py-2 pl-4 border-l-2 border-primary/30 ml-2 mt-1">
                                   {item.items.map((subItem) => (
                                     <Link
                                       key={subItem.label}
@@ -234,10 +234,10 @@ export function Header({ variant = "transparent" }: HeaderProps) {
                                       target={subItem.external ? "_blank" : "_self"}
                                       rel={subItem.external ? "noopener noreferrer" : ""}
                                       onClick={() => setIsMenuOpen(false)}
-                                      className="flex items-center text-lg font-medium text-gray-600 hover:text-primary transition-colors"
+                                      className="flex items-center text-base font-medium text-gray-600 hover:text-primary transition-colors"
                                     >
                                       {subItem.label}
-                                      {subItem.external && <ArrowUpRight className="w-4 h-4 ml-2" />}
+                                      {subItem.external && <ArrowUpRight className="w-3 h-3 ml-2" />}
                                     </Link>
                                   ))}
                                 </div>
@@ -251,10 +251,10 @@ export function Header({ variant = "transparent" }: HeaderProps) {
                           target={item.external ? "_blank" : "_self"}
                           rel={item.external ? "noopener noreferrer" : ""}
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors"
+                          className="flex items-center py-1.5 text-lg font-bold tracking-tighter uppercase hover:text-primary transition-colors"
                         >
                           {item.label}
-                          {item.external && <ArrowUpRight className="w-5 h-5 ml-2 opacity-50" />}
+                          {item.external && <ArrowUpRight className="w-4 h-4 ml-2 opacity-50" />}
                         </Link>
                       )}
                     </div>
@@ -265,18 +265,18 @@ export function Header({ variant = "transparent" }: HeaderProps) {
                   <Link 
                     href="/dashboard" 
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-3 py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors mt-4"
+                    className="flex items-center gap-2 py-1.5 text-lg font-bold tracking-tighter uppercase hover:text-primary transition-colors mt-2"
                   >
-                    <User className="w-6 h-6" />
+                    <User className="w-5 h-5" />
                     My Account
                   </Link>
                 ) : (
                   <Link 
                     href="/login" 
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-3 py-2 text-2xl font-bold tracking-tighter uppercase hover:text-primary transition-colors mt-4"
+                    className="flex items-center gap-2 py-1.5 text-lg font-bold tracking-tighter uppercase hover:text-primary transition-colors mt-2"
                   >
-                    <User className="w-6 h-6" />
+                    <User className="w-5 h-5" />
                     Login
                   </Link>
                 )}
@@ -284,10 +284,10 @@ export function Header({ variant = "transparent" }: HeaderProps) {
             </div>
 
             {/* Mobile Sticky Bottom Action */}
-            <div className="p-6 border-t border-black/10 bg-white flex-shrink-0">
+            <div className="p-4 border-t border-black/10 bg-white flex-shrink-0">
               <Button 
                 asChild
-                className="w-full rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold h-[52px] text-lg transition-colors duration-300"
+                className="w-full rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold h-12 text-base transition-colors duration-300"
               >
                 <Link href="/donate" onClick={() => setIsMenuOpen(false)}>Donate</Link>
               </Button>

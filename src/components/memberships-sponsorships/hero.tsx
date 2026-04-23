@@ -15,33 +15,33 @@ export function MembershipsHero() {
           className="object-cover scale-110"
           priority
         />
-        <div className="absolute inset-0 bg-black/70 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
       
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-20 max-w-4xl mx-auto flex flex-col items-center"
+        className="relative z-20 max-w-4xl mx-auto flex flex-col items-center drop-shadow-lg"
       >
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-8 leading-tight">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-8 leading-tight drop-shadow-xl">
           Golf Tournament Sponsorships & Memberships in Kansas City
         </h1>
         
-        <div className="w-24 h-1 bg-primary mb-8"></div>
+        <div className="w-24 h-1 bg-primary mb-8 shadow-sm"></div>
         
-        <p className="text-lg md:text-xl text-gray-200 mb-4 font-medium max-w-3xl">
+        <p className="text-lg md:text-xl text-white mb-4 font-medium max-w-3xl drop-shadow-md">
           Serving Kingdom KC offers exclusive golf tournament sponsorships and memberships designed to elevate your brand while making a tangible impact in our community.
         </p>
-        <p className="text-lg md:text-xl text-gray-200 mb-12 font-medium max-w-3xl">
+        <p className="text-lg md:text-xl text-white mb-12 font-medium max-w-3xl drop-shadow-md">
           By partnering with us, you secure your place in premium Kansas City golf events, gain valuable marketing visibility, and directly support local nonprofits.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold transition-colors duration-300">
+          <Button asChild className="w-full sm:w-auto h-14 px-8 rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold transition-colors duration-300 shadow-lg">
             <Link href="/tournaments">View Upcoming Events Schedule</Link>
           </Button>
-          <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-none border-white text-white hover:bg-white hover:text-black uppercase tracking-widest font-bold transition-colors duration-300 bg-transparent">
+          <Button asChild variant="outline" className="w-full sm:w-auto h-14 px-8 rounded-none border-white text-white hover:bg-white hover:text-black uppercase tracking-widest font-bold transition-colors duration-300 bg-black/20 backdrop-blur-sm shadow-lg">
             <a href="#pricing">Subscribe to a Package Now</a>
           </Button>
         </div>

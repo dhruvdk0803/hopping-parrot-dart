@@ -13,22 +13,22 @@ export function DonateHero() {
           className="object-cover scale-110"
           priority
         />
-        <div className="absolute inset-0 bg-black/60 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-20 max-w-3xl mx-auto flex flex-col items-center"
+        className="relative z-20 max-w-3xl mx-auto flex flex-col items-center drop-shadow-lg"
       >
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase drop-shadow-xl">
           Make a Difference
         </h1>
-        <div className="w-24 h-1 bg-primary my-8"></div>
-        <p className="text-2xl md:text-3xl font-medium mb-4">
+        <div className="w-24 h-1 bg-primary my-8 shadow-sm"></div>
+        <p className="text-2xl md:text-3xl font-medium mb-4 drop-shadow-md text-white">
           Partner with us to serve and uplift Kansas City nonprofits.
         </p>
-        <p className="text-lg text-gray-200 max-w-2xl">
+        <p className="text-lg text-white max-w-2xl drop-shadow-md font-medium">
           Your generosity directly fuels purpose-driven events that multiply impact across our community.
         </p>
       </motion.div>

@@ -14,29 +14,29 @@ export function StoreHero() {
           className="object-cover scale-110"
           priority
         />
-        <div className="absolute inset-0 bg-black/80 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
       
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-20 max-w-4xl mx-auto flex flex-col items-center"
+        className="relative z-20 max-w-4xl mx-auto flex flex-col items-center drop-shadow-lg"
       >
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-8 leading-tight">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-8 leading-tight drop-shadow-xl">
           Serving Kingdom KC Tournament Store
         </h1>
         
-        <div className="w-24 h-1 bg-primary mb-8"></div>
+        <div className="w-24 h-1 bg-primary mb-8 shadow-sm"></div>
         
-        <p className="text-lg md:text-xl text-gray-200 mb-6 font-medium max-w-3xl leading-relaxed">
+        <p className="text-lg md:text-xl text-white mb-6 font-medium max-w-3xl leading-relaxed drop-shadow-md">
           Welcome to the Serving Kingdom KC Tournament Store, powered by our partners at Perfect Golf Event.
         </p>
-        <p className="text-lg md:text-xl text-gray-200 mb-12 font-medium max-w-3xl leading-relaxed">
+        <p className="text-lg md:text-xl text-white mb-12 font-medium max-w-3xl leading-relaxed drop-shadow-md">
           Whether you are organizing a charity golf tournament in Kansas City or looking for ways to increase your event's fundraising potential, we have everything you need. From high-stakes hole-in-one contests to premium player gifts, our curated selection of tournament merchandise is designed to help you attract more players, sell more sponsorships, and ultimately raise more money for your cause.
         </p>
 
-        <Button asChild className="w-full sm:w-auto h-14 px-10 rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold transition-colors duration-300">
+        <Button asChild className="w-full sm:w-auto h-14 px-10 rounded-none bg-primary hover:bg-black text-white uppercase tracking-widest font-bold transition-colors duration-300 shadow-lg">
           <a href="https://perfectgolfevent.com/home-skkc/" target="_blank" rel="noopener noreferrer">
             Browse the Full Tournament Store
           </a>
