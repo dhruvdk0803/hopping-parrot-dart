@@ -6,25 +6,25 @@ import { Button } from "@/components/ui/button";
 
 const events = [
   {
-    title: "Varsity Skateboarding Organization",
-    date: "March 28th, 2026",
-    location: "Golf Ranch Shoal Creek",
-    image: "/varsity-skate-logo.jpg",
-    link: "https://varsity-skateboarding-golf.perfectgolfevent.com/",
-  },
-  {
-    title: "Blue Springs Young Life",
-    date: "April 27th, 2026",
-    location: "Adams Pointe Golf Club",
-    image: "/younglife-logo.jpeg",
-    link: "https://mo77.younglife.team/2026-golf-tournament",
-  },
-  {
     title: "Valor Ranch",
     date: "May 8th, 2026",
     location: "Paradise Pointe Golf Complex",
     image: "/valor-ranch-logo.jpeg",
     link: "https://valorranch.org",
+  },
+  {
+    title: "Team Central Wrestling Club",
+    date: "May 11th, 2026",
+    location: "Staley Farms Golf Club",
+    image: "https://images.unsplash.com/photo-1587174469332-3TT5b48cad33?q=80&w=2127&auto=format&fit=crop",
+    link: "#",
+  },
+  {
+    title: "Northland Workforce Development Center",
+    date: "June 8th, 2026",
+    location: "Staley Farms Golf Club",
+    image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2070&auto=format&fit=crop",
+    link: "https://www.nwdckc.org/golf",
   },
 ];
 
