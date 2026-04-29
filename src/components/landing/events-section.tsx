@@ -16,7 +16,7 @@ const events = [
     title: "Team Central Wrestling Club",
     date: "May 11th, 2026",
     location: "Staley Farms Golf Club",
-    image: "https://images.unsplash.com/photo-1587174469332-3TT5b48cad33?q=80&w=2127&auto=format&fit=crop",
+    image: "/DSC_8553.jpg",
     link: "#",
   },
   {
