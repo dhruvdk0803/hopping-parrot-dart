@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { X } from "lucide-react";
+import { X, Trash2 } from "lucide-react";
 
 export function StoreContent() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -117,6 +117,10 @@ export function StoreContent() {
     setSelectedProduct(null);
   };
 
+  const removeFromCart = (cartId: string) => {
+    setCart(prev => prev.filter(item => item.cart_id !== cartId));
+  };
+
   const handleCheckout = async () => {
     if (cart.length === 0) return;
     setIsCheckingOut(true);
@@ -141,7 +145,7 @@ export function StoreContent() {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        toast.error(data.error || "Checkout failed.");
+        toast.error(data.error || "Checkout failed. Please check your Stripe configuration.");
         setIsCheckingOut(false);
       }
     } catch (error) {
@@ -165,8 +169,8 @@ export function StoreContent() {
           <h3 className="font-bold uppercase tracking-widest mb-4">Your Cart ({cart.reduce((sum, item) => sum + (item.quantity || 1), 0)})</h3>
           <div className="overflow-y-auto flex-grow mb-4 space-y-4 pr-2">
             {cart.map((item, i) => (
-              <div key={item.cart_id || i} className="flex justify-between text-sm border-b border-white/10 pb-3">
-                <div>
+              <div key={item.cart_id || i} className="flex justify-between items-start text-sm border-b border-white/10 pb-3">
+                <div className="flex-grow pr-4">
                   <p className="font-bold">{item.name}</p>
                   {(item.selectedColor || item.selectedSize || item.selectedBackOption) && (
                     <p className="text-gray-400 text-xs mt-1">
@@ -175,7 +179,16 @@ export function StoreContent() {
                   )}
                   <p className="text-gray-400 text-xs mt-1">Qty: {item.quantity || 1}</p>
                 </div>
-                <p className="font-bold">${(Number(item.price) * (item.quantity || 1)).toFixed(2)}</p>
+                <div className="flex flex-col items-end gap-2">
+                  <p className="font-bold">${(Number(item.price) * (item.quantity || 1)).toFixed(2)}</p>
+                  <button 
+                    onClick={() => removeFromCart(item.cart_id)} 
+                    className="text-gray-400 hover:text-red-400 transition-colors"
+                    aria-label="Remove item"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>

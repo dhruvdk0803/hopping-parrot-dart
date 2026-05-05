@@ -2,14 +2,23 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabase } from '@/integrations/supabase/client';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-02-25.clover',
+// Initialize Stripe. If the key is missing, we won't crash immediately, but we'll catch it in the POST request.
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2023-10-16' as any, // Using a stable API version
 });
 
 export async function POST(req: Request) {
   try {
+    // 1. Check if Stripe is configured
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json({ error: 'Stripe secret key is missing. Please add it to your environment variables.' }, { status: 500 });
+    }
+
     const body = await req.json();
     const { type, items, amount } = body;
+
+    // Dynamically get the website URL so it works in preview and production
+    const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
     let lineItems: any[] = [];
     let totalAmount = 0;
@@ -20,7 +29,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
       }
 
-      // Fetch prices from Supabase to ensure security (never trust frontend prices)
+      // Fetch prices from Supabase to ensure security
       const productIds = items.map((item: any) => item.id);
       const { data: products, error } = await supabase
         .from('products')
@@ -38,7 +47,7 @@ export async function POST(req: Request) {
         
         orderItems.push({
           ...item,
-          price: product.price, // Use DB price
+          price: product.price,
           name: product.name
         });
 
@@ -49,7 +58,7 @@ export async function POST(req: Request) {
               name: `${product.name} ${item.selectedColor ? `(${item.selectedColor})` : ''} ${item.selectedSize ? `[${item.selectedSize}]` : ''}`.trim(),
               images: product.image_url ? [product.image_url] : [],
             },
-            unit_amount: Math.round(Number(product.price) * 100), // Convert to cents
+            unit_amount: Math.round(Number(product.price) * 100),
           },
           quantity: quantity,
         });
@@ -68,7 +77,7 @@ export async function POST(req: Request) {
           product_data: {
             name: 'Donation to Serving Kingdom KC',
           },
-          unit_amount: Math.round(totalAmount * 100), // Convert to cents
+          unit_amount: Math.round(totalAmount * 100),
         },
         quantity: 1,
       });
@@ -82,7 +91,7 @@ export async function POST(req: Request) {
       .insert([{
         customer_name: 'Guest Checkout',
         email: 'guest@example.com',
-        phone: 'N/A', // Required by schema
+        phone: 'N/A',
         items: orderItems,
         total: totalAmount,
         status: 'pending'
@@ -95,15 +104,13 @@ export async function POST(req: Request) {
       throw new Error('Failed to create order record');
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-
-    // Create Stripe session
+    // Create Stripe session using automatic payment methods
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      ui_mode: 'hosted',
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${siteUrl}/store/success?session_id={CHECKOUT_SESSION_ID}&order_id=${order.id}`,
-      cancel_url: `${siteUrl}/${type === 'donation' ? 'donate' : 'store'}`,
+      success_url: `${origin}/store/success?session_id={CHECKOUT_SESSION_ID}&order_id=${order.id}`,
+      cancel_url: `${origin}/${type === 'donation' ? 'donate' : 'store'}`,
       metadata: {
         order_id: order.id,
         type: type
@@ -113,6 +120,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ url: session.url, sessionId: session.id });
   } catch (error: any) {
     console.error('Checkout error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'An unexpected error occurred' }, { status: 500 });
   }
 }
