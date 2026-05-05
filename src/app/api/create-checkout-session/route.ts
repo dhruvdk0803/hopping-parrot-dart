@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabase } from '@/integrations/supabase/client';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+// Add a fallback string so the Next.js build doesn't crash
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
   apiVersion: '2023-10-16' as any, 
 });
 
 export async function POST(req: Request) {
   try {
-    if (!process.env.STRIPE_SECRET_KEY) {
+    if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY === 'sk_test_dummy') {
       return NextResponse.json({ error: 'Stripe secret key is missing. Please add it to your environment variables.' }, { status: 500 });
     }
 
