@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { supabase } from '@/integrations/supabase/client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
@@ -10,27 +9,16 @@ import { CheckCircle } from 'lucide-react';
 export default function SuccessClient() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('order_id');
-  const [status, setStatus] = useState('Processing your order...');
+  const [status, setStatus] = useState('Verifying your payment...');
 
   useEffect(() => {
-    const updateOrder = async () => {
-      if (orderId) {
-        const { error } = await supabase
-          .from('orders')
-          .update({ status: 'paid' })
-          .eq('id', orderId);
-          
-        if (!error) {
-          setStatus('Payment successful! Your order has been confirmed.');
-        } else {
-          setStatus('Order recorded, but there was an issue updating the status.');
-        }
-      } else {
-        setStatus('No order ID found.');
-      }
-    };
-
-    updateOrder();
+    if (orderId) {
+      // The webhook handles the actual database update securely in the background.
+      // We just show a success message to the user here.
+      setStatus('Payment successful! Your order has been confirmed.');
+    } else {
+      setStatus('No order ID found.');
+    }
   }, [orderId]);
 
   return (
