@@ -28,11 +28,19 @@ export async function POST(req: Request) {
     const orderId = session.metadata?.order_id;
 
     if (orderId) {
-      // Update order status to paid. 
+      // Capture the actual customer details from Stripe
+      const customerEmail = session.customer_details?.email || 'guest@example.com';
+      const customerName = session.customer_details?.name || 'Guest Checkout';
+
+      // Update order status to paid AND save the customer's real details.
       // We use .eq('status', 'pending') to ensure we don't process duplicates.
       const { error } = await supabase
         .from('orders')
-        .update({ status: 'paid' })
+        .update({ 
+          status: 'paid',
+          email: customerEmail,
+          customer_name: customerName
+        })
         .eq('id', orderId)
         .eq('status', 'pending');
 
@@ -41,7 +49,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Database update failed' }, { status: 500 });
       }
       
-      console.log(`Order ${orderId} successfully marked as paid.`);
+      console.log(`Order ${orderId} successfully marked as paid for ${customerEmail}.`);
     }
   }
 
