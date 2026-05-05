@@ -2,15 +2,16 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabase } from '@/integrations/supabase/client';
 
-// Using the provided live key as a fallback if the environment variable is not set
-const STRIPE_KEY = process.env.STRIPE_SECRET_KEY || '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';
-
-const stripe = new Stripe(STRIPE_KEY, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16' as any, 
 });
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json({ error: 'Stripe secret key is missing. Please add it to your environment variables.' }, { status: 500 });
+    }
+
     const body = await req.json();
     const { type, items, amount } = body;
 
