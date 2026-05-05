@@ -175,13 +175,13 @@ export function StoreContent() {
                   )}
                   <p className="text-gray-400 text-xs mt-1">Qty: {item.quantity || 1}</p>
                 </div>
-                <p className="font-bold">₹{(Number(item.price) * (item.quantity || 1)).toFixed(2)}</p>
+                <p className="font-bold">${(Number(item.price) * (item.quantity || 1)).toFixed(2)}</p>
               </div>
             ))}
           </div>
           <div className="flex justify-between items-center mb-6 pt-4 border-t border-white/20">
             <span className="text-gray-400">Total:</span>
-            <span className="text-xl font-bold">₹{cart.reduce((sum, item) => sum + (Number(item.price) * (item.quantity || 1)), 0).toFixed(2)}</span>
+            <span className="text-xl font-bold">${cart.reduce((sum, item) => sum + (Number(item.price) * (item.quantity || 1)), 0).toFixed(2)}</span>
           </div>
           <Button 
             onClick={handleCheckout}
@@ -229,7 +229,7 @@ export function StoreContent() {
               {/* Details */}
               <div className="flex flex-col">
                 <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tighter mb-2 pr-8">{selectedProduct.name}</h2>
-                <p className="text-2xl font-bold text-primary mb-6">₹{Number(selectedProduct.price).toFixed(2)}</p>
+                <p className="text-2xl font-bold text-primary mb-6">${Number(selectedProduct.price).toFixed(2)}</p>
                 <p className="text-gray-600 mb-8 whitespace-pre-wrap leading-relaxed">{selectedProduct.description}</p>
 
                 {/* Colors */}
@@ -297,7 +297,7 @@ export function StoreContent() {
                 </div>
 
                 <Button onClick={addToCartFromModal} className="w-full h-14 rounded-none bg-black hover:bg-primary text-white uppercase tracking-widest font-bold mt-auto transition-colors">
-                  Add to Cart - ₹{(Number(selectedProduct.price) * quantity).toFixed(2)}
+                  Add to Cart - ${(Number(selectedProduct.price) * quantity).toFixed(2)}
                 </Button>
               </div>
             </motion.div>
@@ -336,7 +336,7 @@ export function StoreContent() {
                   </h3>
                   <div className="mb-6">
                     <span className="text-4xl font-bold tracking-tighter group-hover:text-primary transition-colors">
-                      ₹{Number(membership.price).toFixed(2)}
+                      ${Number(membership.price).toFixed(2)}
                     </span>
                     <span className="block text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
                       per month
@@ -414,7 +414,7 @@ export function StoreContent() {
                   </div>
                   <h3 className="text-sm font-bold uppercase tracking-wider mb-2 line-clamp-2">{product.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow whitespace-pre-wrap">{product.description}</p>
-                  <p className="text-xl font-bold mb-6">₹{Number(product.price).toFixed(2)}</p>
+                  <p className="text-xl font-bold mb-6">${Number(product.price).toFixed(2)}</p>
                   <Button 
                     onClick={() => handleAddToCart(product)}
                     className="mt-auto w-full h-12 rounded-none bg-black hover:bg-primary text-white text-xs uppercase tracking-widest font-bold transition-colors"

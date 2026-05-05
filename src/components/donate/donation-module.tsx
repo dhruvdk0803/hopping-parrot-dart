@@ -98,14 +98,14 @@ export function DonationModule() {
                     : "border-black bg-transparent text-black hover:border-primary"
                 }`}
               >
-                ₹{amount}
+                ${amount}
               </button>
             ))}
             <div className="col-span-2 sm:col-span-2 relative">
               <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none ${
                 selectedAmount === "custom" ? "text-white" : "text-black"
               }`}>
-                <span className="text-xl font-bold">₹</span>
+                <span className="text-xl font-bold">$</span>
               </div>
               <input
                 type="number"
@@ -153,15 +153,15 @@ export function DonationModule() {
               <div className="pt-4 pl-9 text-sm text-muted-foreground space-y-1">
                 <div className="flex justify-between">
                   <span>Donation:</span>
-                  <span>₹{baseAmount.toFixed(2)}</span>
+                  <span>${baseAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Processing Fee:</span>
-                  <span>₹{feeAmount.toFixed(2)}</span>
+                  <span>${feeAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-bold text-black pt-2 border-t border-black/10 mt-2">
                   <span>Total {frequency === "monthly" ? "per month" : ""}:</span>
-                  <span>₹{totalAmount.toFixed(2)}</span>
+                  <span>${totalAmount.toFixed(2)}</span>
                 </div>
               </div>
             </motion.div>
@@ -173,7 +173,7 @@ export function DonationModule() {
             disabled={isCheckingOut}
             className="w-full h-14 rounded-none bg-primary hover:bg-black text-white text-lg uppercase tracking-widest font-bold transition-all duration-300 hover:scale-[1.02]"
           >
-            {isCheckingOut ? "Processing..." : `Donate ₹${totalAmount > 0 ? totalAmount.toFixed(2) : "0.00"}`}
+            {isCheckingOut ? "Processing..." : `Donate $${totalAmount > 0 ? totalAmount.toFixed(2) : "0.00"}`}
           </Button>
           
           <p className="text-center text-xs text-muted-foreground mt-6 uppercase tracking-wider">

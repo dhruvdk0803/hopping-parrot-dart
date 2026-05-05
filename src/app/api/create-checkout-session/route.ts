@@ -44,12 +44,12 @@ export async function POST(req: Request) {
 
         lineItems.push({
           price_data: {
-            currency: 'inr',
+            currency: 'usd',
             product_data: {
               name: `${product.name} ${item.selectedColor ? `(${item.selectedColor})` : ''} ${item.selectedSize ? `[${item.selectedSize}]` : ''}`.trim(),
               images: product.image_url ? [product.image_url] : [],
             },
-            unit_amount: Math.round(Number(product.price) * 100), // Convert to paise
+            unit_amount: Math.round(Number(product.price) * 100), // Convert to cents
           },
           quantity: quantity,
         });
@@ -64,11 +64,11 @@ export async function POST(req: Request) {
       
       lineItems.push({
         price_data: {
-          currency: 'inr',
+          currency: 'usd',
           product_data: {
             name: 'Donation to Serving Kingdom KC',
           },
-          unit_amount: Math.round(totalAmount * 100),
+          unit_amount: Math.round(totalAmount * 100), // Convert to cents
         },
         quantity: 1,
       });
