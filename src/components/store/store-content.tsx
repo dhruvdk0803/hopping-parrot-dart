@@ -14,6 +14,7 @@ export function StoreContent() {
   const [activeTab, setActiveTab] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState<any[]>([]);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   // Modal State
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
@@ -34,7 +35,6 @@ export function StoreContent() {
         const subs = prodRes.data.filter(p => p.type === 'subscription');
         const swag = prodRes.data.filter(p => p.type !== 'subscription');
         
-        // Sort memberships: Sponsors -> Sponsor + Team -> Team -> Custom
         const getRank = (name: string) => {
           const n = name.toLowerCase();
           if (n.includes('custom')) return 4;
@@ -48,7 +48,6 @@ export function StoreContent() {
           const rankA = getRank(a.name);
           const rankB = getRank(b.name);
           if (rankA !== rankB) return rankA - rankB;
-          // If same rank, sort by price descending (e.g., 6 package before 3 package)
           return Number(b.price) - Number(a.price);
         });
 
@@ -120,22 +119,34 @@ export function StoreContent() {
 
   const handleCheckout = async () => {
     if (cart.length === 0) return;
+    setIsCheckingOut(true);
     
     try {
-      const response = await fetch('/api/checkout', {
+      const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: cart }),
+        body: JSON.stringify({ 
+          type: 'cart',
+          items: cart.map(item => ({
+            id: item.id,
+            quantity: item.quantity || 1,
+            selectedColor: item.selectedColor,
+            selectedSize: item.selectedSize,
+            selectedBackOption: item.selectedBackOption
+          }))
+        }),
       });
       
       const data = await response.json();
       if (data.url) {
         window.location.href = data.url;
       } else {
-        toast.error("Checkout failed. Please check Stripe configuration.");
+        toast.error(data.error || "Checkout failed.");
+        setIsCheckingOut(false);
       }
     } catch (error) {
       toast.error("An error occurred during checkout.");
+      setIsCheckingOut(false);
     }
   };
 
@@ -164,19 +175,20 @@ export function StoreContent() {
                   )}
                   <p className="text-gray-400 text-xs mt-1">Qty: {item.quantity || 1}</p>
                 </div>
-                <p className="font-bold">${(Number(item.price) * (item.quantity || 1)).toFixed(2)}</p>
+                <p className="font-bold">₹{(Number(item.price) * (item.quantity || 1)).toFixed(2)}</p>
               </div>
             ))}
           </div>
           <div className="flex justify-between items-center mb-6 pt-4 border-t border-white/20">
             <span className="text-gray-400">Total:</span>
-            <span className="text-xl font-bold">${cart.reduce((sum, item) => sum + (Number(item.price) * (item.quantity || 1)), 0).toFixed(2)}</span>
+            <span className="text-xl font-bold">₹{cart.reduce((sum, item) => sum + (Number(item.price) * (item.quantity || 1)), 0).toFixed(2)}</span>
           </div>
           <Button 
             onClick={handleCheckout}
+            disabled={isCheckingOut}
             className="w-full h-12 rounded-none bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-bold transition-colors"
           >
-            Checkout
+            {isCheckingOut ? "Processing..." : "Checkout"}
           </Button>
         </div>
       )}
@@ -217,7 +229,7 @@ export function StoreContent() {
               {/* Details */}
               <div className="flex flex-col">
                 <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tighter mb-2 pr-8">{selectedProduct.name}</h2>
-                <p className="text-2xl font-bold text-primary mb-6">${Number(selectedProduct.price).toFixed(2)}</p>
+                <p className="text-2xl font-bold text-primary mb-6">₹{Number(selectedProduct.price).toFixed(2)}</p>
                 <p className="text-gray-600 mb-8 whitespace-pre-wrap leading-relaxed">{selectedProduct.description}</p>
 
                 {/* Colors */}
@@ -285,7 +297,7 @@ export function StoreContent() {
                 </div>
 
                 <Button onClick={addToCartFromModal} className="w-full h-14 rounded-none bg-black hover:bg-primary text-white uppercase tracking-widest font-bold mt-auto transition-colors">
-                  Add to Cart - ${(Number(selectedProduct.price) * quantity).toFixed(2)}
+                  Add to Cart - ₹{(Number(selectedProduct.price) * quantity).toFixed(2)}
                 </Button>
               </div>
             </motion.div>
@@ -324,7 +336,7 @@ export function StoreContent() {
                   </h3>
                   <div className="mb-6">
                     <span className="text-4xl font-bold tracking-tighter group-hover:text-primary transition-colors">
-                      ${Number(membership.price).toFixed(2)}
+                      ₹{Number(membership.price).toFixed(2)}
                     </span>
                     <span className="block text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
                       per month
@@ -402,7 +414,7 @@ export function StoreContent() {
                   </div>
                   <h3 className="text-sm font-bold uppercase tracking-wider mb-2 line-clamp-2">{product.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow whitespace-pre-wrap">{product.description}</p>
-                  <p className="text-xl font-bold mb-6">${Number(product.price).toFixed(2)}</p>
+                  <p className="text-xl font-bold mb-6">₹{Number(product.price).toFixed(2)}</p>
                   <Button 
                     onClick={() => handleAddToCart(product)}
                     className="mt-auto w-full h-12 rounded-none bg-black hover:bg-primary text-white text-xs uppercase tracking-widest font-bold transition-colors"
