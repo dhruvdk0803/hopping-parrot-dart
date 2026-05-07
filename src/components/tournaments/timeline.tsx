@@ -6,17 +6,6 @@ import Link from "next/link";
 
 const events = [
   {
-    id: 2,
-    date: "April 27th, 2026",
-    season: "Spring",
-    nonprofit: "Blue Springs Young Life",
-    eventName: "Golf Tournament",
-    location: "Adams Pointe Golf Club",
-    time: "Shotgun Start 8:00am",
-    hasLink: true,
-    link: "https://mo77.younglife.team/2026-golf-tournament"
-  },
-  {
     id: 3,
     date: "May 8th, 2026",
     season: "Spring",

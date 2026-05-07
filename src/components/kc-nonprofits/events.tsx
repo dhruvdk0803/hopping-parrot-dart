@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 const events = [
   { org: "Varsity Skateboarding Org", date: "March 28, 2026", venue: "Golf Ranch Shoal Creek", status: "Active" },
-  { org: "Young Life Blue Springs", date: "April 27, 2026", venue: "Adams Pointe Golf Club", status: "Active" },
   { org: "Valor Ranch", date: "May 8, 2026", venue: "Paradise Pointe Golf Complex", status: "Active" },
   { org: "LevelUp Kids", date: "September 21, 2026", venue: "Shoal Creek Golf Course", status: "Coming Soon" },
   { org: "Haiti Joy Hope", date: "TBD", venue: "TBD", status: "Past Partner" },

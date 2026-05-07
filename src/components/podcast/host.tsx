@@ -20,7 +20,7 @@ export function PodcastHost() {
                 src="/jeff-mccubbins.jpeg" 
                 alt="Jeff McCubbins, host of the Serving Kingdom KC podcast and founder of Serving Kingdom KC" 
                 fill 
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="object-cover transition-all duration-700"
               />
             </div>
           </motion.div>
