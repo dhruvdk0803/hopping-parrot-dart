@@ -4,7 +4,6 @@ import { Footer } from "@/components/landing/footer";
 import { KcNonprofitsHero } from "@/components/kc-nonprofits/hero";
 import { KcNonprofitsMission } from "@/components/kc-nonprofits/mission";
 import { KcNonprofitsPartners } from "@/components/kc-nonprofits/partners";
-import { KcNonprofitsEvents } from "@/components/kc-nonprofits/events";
 import { KcNonprofitsDiscover } from "@/components/kc-nonprofits/discover";
 import { KcNonprofitsBeneficiary } from "@/components/kc-nonprofits/beneficiary";
 import { KcNonprofitsFinalCta } from "@/components/kc-nonprofits/final-cta";
@@ -22,7 +21,6 @@ export default function KcNonprofitsPage() {
         <KcNonprofitsHero />
         <KcNonprofitsMission />
         <KcNonprofitsPartners />
-        <KcNonprofitsEvents />
         <KcNonprofitsDiscover />
         <KcNonprofitsBeneficiary />
         <KcNonprofitsFinalCta />
