@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 export function KcNonprofitsMission() {
   return (
@@ -27,14 +26,17 @@ export function KcNonprofitsMission() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-            className="relative h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-xl"
+            className="relative h-[300px] sm:h-[400px] lg:h-[450px] w-full rounded-2xl overflow-hidden shadow-xl bg-black"
           >
-            <Image
-              src="/DSC_8553.jpg"
-              alt="Community giving KC"
-              fill
-              className="object-cover"
-            />
+            <iframe 
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/Nf2F9mH5rGY?si=JJwyJzIWUoQGb7g5&controls=0" 
+              title="YouTube video player" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              allowFullScreen
+            ></iframe>
           </motion.div>
         </div>
       </div>
