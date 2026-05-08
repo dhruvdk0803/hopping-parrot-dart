@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown, ArrowUpRight, User } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import Image from "next/image";
 
 interface HeaderProps {
   variant?: "transparent" | "solid";
@@ -104,8 +105,12 @@ export function Header({ variant = "transparent" }: HeaderProps) {
       >
         <div className="container mx-auto flex items-center justify-between px-4 h-20">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold tracking-tighter uppercase z-50 relative">
-            Serving Kingdom KC
+          <Link href="/" className="z-50 relative flex items-center">
+            <img 
+              src={showTransparent && !isMenuOpen ? "/logo-white.png" : "/logo-black.png"} 
+              alt="Serving Kingdom KC" 
+              className="h-10 md:h-12 w-auto object-contain transition-all duration-300"
+            />
           </Link>
 
           {/* Desktop Navigation */}

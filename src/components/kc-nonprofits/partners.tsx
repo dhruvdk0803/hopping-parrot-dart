@@ -24,13 +24,11 @@ const partners = [
     name: "Varsity Skateboarding Organization",
     desc: "Varsity Skateboarding Organization uses the sport of skateboarding to engage youth, teach life skills, and build a supportive community. They provide a positive outlet and mentorship for young athletes across the metro area.",
     impact: "Empowering youth through sports, mentorship, and community engagement.",
-    event: "March 28th, 2026 at Golf Ranch Shoal Creek",
   },
   {
     name: "Valor Ranch",
     desc: "Valor Ranch provides a safe, supportive environment for female veterans to heal, transition, and find renewed purpose after their military service. Their holistic approach focuses on mental, physical, and spiritual well-being.",
     impact: "Supporting female veterans through transition and healing programs.",
-    event: "May 8th, 2026 at Paradise Pointe Golf Complex",
   }
 ];
 

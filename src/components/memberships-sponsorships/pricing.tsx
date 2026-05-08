@@ -1,7 +1,10 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const sponsorPackages = [
   {
@@ -48,7 +51,7 @@ const sponsorTeamPackages = [
   }
 ];
 
-const PricingCard = ({ pkg, index }: { pkg: any, index: number }) => (
+const PricingCard = ({ pkg, index, onSubscribe, isLoading }: { pkg: any, index: number, onSubscribe: (name: string) => void, isLoading: boolean }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -77,13 +80,61 @@ const PricingCard = ({ pkg, index }: { pkg: any, index: number }) => (
     <p className="text-base leading-relaxed mb-10 flex-grow text-gray-700">
       {pkg.desc}
     </p>
-    <Button asChild className="w-full h-14 rounded-none bg-primary hover:bg-black text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto">
-      <a href="/store" target="_blank" rel="noopener noreferrer">Subscribe</a>
+    <Button 
+      onClick={() => onSubscribe(pkg.name)}
+      disabled={isLoading}
+      className="w-full h-14 rounded-none bg-primary hover:bg-black text-white text-base uppercase tracking-widest font-bold transition-colors mt-auto"
+    >
+      {isLoading ? "Processing..." : "Subscribe"}
     </Button>
   </motion.div>
 );
 
 export function PricingSections() {
+  const [loadingPkg, setLoadingPkg] = useState<string | null>(null);
+
+  const handleSubscribe = async (pkgName: string) => {
+    setLoadingPkg(pkgName);
+    try {
+      // Find the product in the database by matching the name
+      const { data: products, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('type', 'subscription')
+        .ilike('name', `%${pkgName}%`)
+        .limit(1);
+
+      if (error || !products || products.length === 0) {
+        toast.error("Package not found. Redirecting to store...");
+        window.location.href = "/store";
+        return;
+      }
+
+      const product = products[0];
+
+      // Create checkout session directly
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'cart',
+          items: [{ id: product.id, quantity: 1 }]
+        }),
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        toast.error(data.error || "Checkout failed.");
+      }
+    } catch (err) {
+      toast.error("An error occurred during checkout.");
+    } finally {
+      setLoadingPkg(null);
+    }
+  };
+
   return (
     <div id="pricing" className="bg-gray-50">
       {/* Sponsor Memberships */}
@@ -98,7 +149,9 @@ export function PricingSections() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {sponsorPackages.map((pkg, i) => <PricingCard key={pkg.name} pkg={pkg} index={i} />)}
+            {sponsorPackages.map((pkg, i) => (
+              <PricingCard key={pkg.name} pkg={pkg} index={i} onSubscribe={handleSubscribe} isLoading={loadingPkg === pkg.name} />
+            ))}
           </div>
         </div>
       </section>
@@ -112,7 +165,9 @@ export function PricingSections() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {teamPackages.map((pkg, i) => <PricingCard key={pkg.name} pkg={pkg} index={i} />)}
+            {teamPackages.map((pkg, i) => (
+              <PricingCard key={pkg.name} pkg={pkg} index={i} onSubscribe={handleSubscribe} isLoading={loadingPkg === pkg.name} />
+            ))}
           </div>
         </div>
       </section>
@@ -126,7 +181,9 @@ export function PricingSections() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {sponsorTeamPackages.map((pkg, i) => <PricingCard key={pkg.name} pkg={pkg} index={i} />)}
+            {sponsorTeamPackages.map((pkg, i) => (
+              <PricingCard key={pkg.name} pkg={pkg} index={i} onSubscribe={handleSubscribe} isLoading={loadingPkg === pkg.name} />
+            ))}
           </div>
         </div>
       </section>
